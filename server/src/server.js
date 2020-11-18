@@ -5,8 +5,9 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const cors = require('cors')
 
+const db = require('./db')
+const apiRoute = require('./routes')
 const app = express()
-const port = process.env.PORT || 9091
 
 app.use(cors())
 app.use(helmet())
@@ -14,36 +15,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../../client/build')))
 process.env.NODE_ENV !== 'test' && app.use(morgan('tiny'))
+app.use('/api', apiRoute)
 
+// DB_URI=mongodb://127.0.0.1:27017/webStories
+const DB_URI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
+const PORT = process.env.PORT || 9091;
+// console.log(DB_URI)
+
+db.connect(DB_URI).then(() => {
+  app.listen(PORT, () => console.log("Listening server port: " + PORT));
+});
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 // })
-
-
-const chapters = [
-  {
-    id: 1,
-    chapter_name: 'asd 1'
-  },
-  {
-    id: 2,
-    chapter_name: 'Chuonasdg  2'
-  }
-]
-app.get('/api/chapters', (req, res) =>{
-  res.json(chapters)
-})
-
-app.get('/api/chapters/:id', (req, res) =>{
-  const id = req.params.id
-  const chapter = chapters.filter(item => item.id == id)
-  res.json(chapter[0])
-})
-
-app.post('/api/chapters', (req, res) =>{
-  console.log(req.body, 'TEST')
-  // res.json(chapters)
-})
-
-app.listen(port, () => console.log("Listening server " + port))

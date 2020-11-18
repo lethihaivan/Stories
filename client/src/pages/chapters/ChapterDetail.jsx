@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link,  } from "react-router-dom";
 import { ChapterAPI } from '../../services'
 
+
 export const ChapterDetail = (props) =>{
     const {match, location} = props
     const [chapter, setChapter] = useState({})

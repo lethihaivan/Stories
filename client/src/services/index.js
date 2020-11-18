@@ -1,5 +1,5 @@
-import * as ChapterAPI from './chapters'
-import * as StoryAPI from './stories'
+//import * as ChapterAPI from './chapters'
+import * as storyAPI from './stories'
 
 
-export { ChapterAPI, StoryAPI }
+export {  storyAPI }

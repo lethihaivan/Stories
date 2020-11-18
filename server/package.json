@@ -5,8 +5,8 @@
 	"repository": "",
 	"license": "MIT",
 	"scripts": {
-		"dev": "nodemon --inspect src/server.js",
-		"start": "node src/server.js"
+		"start": "nodemon --inspect src/server.js",
+		"pro": "node src/server.js"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",

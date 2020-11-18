@@ -1,92 +1,130 @@
-//import logo from './logo.svg';
-import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  //useParams
-} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Router, Switch, Route, Link } from "react-router-dom";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+import Login from "./acount/Login";
+import Register from "./acount/Register";
+import Home from "./acount/Home";
+import Profile from "./acount/Profile";
+import BoardUser from "./acount/BoardUser";
+import BoardAuthor from "./acount/BoardAuthor";
+import BoardAdmin from "./acount/BoardAdmin";
 
-import {list, create, getById} from '../src/services/chapters'
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
 
-import React , {useEffect, useState} from 'react';
-import axios  from 'axios';
-import { Chapter } from './pages/chapters/Chapter';
-import { ChapterRouter } from './pages/chapters/ChapterRoute';
+import { history } from "./helpers/history";
 
+const App = () => {
+  const [showAuthorBoard, setShowAuthorBoard] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
 
-function App() {
-  let [post, setPost] = useState({});
-  useEffect(()=> {
-    // axios.get('http://localhost:3000/posts/1')
-    // .then(function (response) {
-    //   setPost(response.data);
-    //  // console.log(response.data);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // })
-  })
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    history.listen((location) => {
+      dispatch(clearMessage()); // clear message when changing location
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setShowAuthorBoard(currentUser.roles.includes("ROLE_AUTHOR"));
+      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+    }
+  }, [currentUser]);
+
+  const logOut = () => {
+    dispatch(logout());
+  };
+
   return (
-    <div className="App">
-      <Router> 
-        <Switch>
-          <Route path='/chapters' component={ChapterRouter}></Route>
-  <Route path='/admin' render={(props) => <div>admin</div>}></Route>
-          <Route exact path='' render={(props) => <div>Home</div>}></Route>
-        </Switch>
-      </Router>
-    </div>
-  );
-}
-function Page(){
-  return (
-    <div>
-      <header className= 'App-header'>
-        <Link to = "/">Home</Link>
-        <Link to = "/about/1">About</Link>
-        <Link to = "/dashboard">Dashboard</Link>
-      </header>
-        <main>
+    // <Provider store={store} >
+    <Router history={history}>
+      <div>
+        <nav className="navbar navbar-expand navbar-dark bg-dark">
+          <Link to={"/"} className="navbar-brand">
+            Web Stories
+          </Link>
+          <div className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link to={"/home"} className="nav-link">
+                Home
+              </Link>
+            </li>
+
+            {showAuthorBoard && (
+              <li className="nav-item">
+                <Link to={"/author"} className="nav-link">
+                  Author Board
+                </Link>
+              </li>
+            )}
+
+            {showAdminBoard && (
+              <li className="nav-item">
+                <Link to={"/admin"} className="nav-link">
+                  Admin Board
+                </Link>
+              </li>
+            )}
+
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/user"} className="nav-link">
+                  User
+                </Link>
+              </li>
+            )}
+          </div>
+
+          {currentUser ? (
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  {currentUser.username}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={logOut}>
+                  LogOut
+                </a>
+              </li>
+            </div>
+          ) : (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to={"/login"} className="nav-link">
+                    Login
+                </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to={"/register"} className="nav-link">
+                    Sign Up
+                </Link>
+                </li>
+              </div>
+            )}
+        </nav>
+
+        <div className="container mt-3">
           <Switch>
-             <Route exact path ="/"  component = { Home}  />
-             <Route path ="/about/:id"  component = { About}  />
-             <Route path ="/dashboard"  component = { Dashboard}  />
-             <Home />
-          </Switch>  
-        </main>
-        <footer>
-          Footer Page
-        </footer>
-      
-    </div>
-  )
-
-}
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
+            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={Profile} />
+            <Route path="/user" component={BoardUser} />
+            <Route path="/mod" component={BoardAuthor} />
+            <Route path="/admin" component={BoardAdmin} />
+          </Switch>
+        </div>
+      </div>
+    </Router>
+    // </Provider>
   );
-}
+};
 
-function About(props) {
-  console.log(props.match.params.id);
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
 export default App;
-//json-server --watch db.json

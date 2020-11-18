@@ -2,8 +2,25 @@
   "posts": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "title": "Post 1",
+      "body": "Le Thi Hai Van"
+    },
+    {
+      "id": 2,
+      "title": "Post 2",
+      "body": "Le Thi Thanh Thuy"
+    },
+    {
+      "id": 3,
+      "title": "Post 3",
+      "body": "Le Thi Y Xuan"
+    }
+  ],
+  "user": [
+    {
+      "id": 1 ,
+      "name": "Hai Van",
+      "email": "HaiVan@gmail.com"
     }
   ],
   "comments": [
