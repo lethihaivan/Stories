@@ -1,3 +1,30 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 .chapter{
     color:red;
+}
+
+#list-chapter, .comment-box {
+    background-color: #F4F4F4;
+    text-align: center;
+    margin-top: 10px;
+}
+.nav-chapter {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+.nav-chapter  ul {
+    list-style-type: none;
+    padding: 0;
+}
+.content-chapter
+{
+    width: 700px; /* kích thước chiều rộng của vùng nội dung */
+    float: left; /* canh div từ trái sang */
+}
+.btn-group, .btn-group-vertical{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
 }

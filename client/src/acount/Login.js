@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { login } from "../actions/auth";
 
 const required = (value) => {
@@ -49,13 +49,13 @@ const Login = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(username, password))
-        // .then(() => {
-        //   props.history.push("/profile");
-        //   window.location.reload();
-        // })
-        // .catch(() => {
-        //   setLoading(false);
-        // });
+        .then(() => {
+          props.history.push("/profile");
+          window.location.reload();
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }
@@ -114,7 +114,7 @@ const Login = (props) => {
                 {message}
               </div>
             </div>
-          )} 
+          )}
           <Link ></Link>
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>

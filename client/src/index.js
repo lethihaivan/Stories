@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux';
-import reducer from './reducers'
 import store from './helpers/store'
 // const store  = createStore(reducer);
 ReactDOM.render(

@@ -42,28 +42,28 @@ export const login = (username, password) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: { user: data },
       });
-
+      console.log(data);
       return Promise.resolve();
     },
     (error) => {
       console.log('@Debug', error,)
-      // const message =
-      //   (error.response &&
-      //     error.response.data &&
-      //     error.response.data.message) ||
-      //   error.message ||
-      //   error.toString();
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-      // dispatch({
-      //   type: LOGIN_FAIL,
-      // });
+      dispatch({
+        type: LOGIN_FAIL,
+      });
 
-      // dispatch({
-      //   type: SET_MESSAGE,
-      //   payload: message,
-      // });
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
 
-      // return Promise.reject(); 
+      return Promise.reject();
     }
   );
 };

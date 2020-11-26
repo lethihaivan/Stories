@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
+import ChapterDetail from "./pages/chapters/ChapterDetail";
+import Story from "./pages/stories/Story";
 import Login from "./acount/Login";
 import Register from "./acount/Register";
 import Home from "./acount/Home";
@@ -11,11 +13,11 @@ import BoardUser from "./acount/BoardUser";
 import BoardAuthor from "./acount/BoardAuthor";
 import BoardAdmin from "./acount/BoardAdmin";
 
+//import Search from "./components/Search/Search"
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-
 import { history } from "./helpers/history";
-
+import Footer from "./acount/Footer"
 const App = () => {
   const [showAuthorBoard, setShowAuthorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -109,21 +111,28 @@ const App = () => {
               </div>
             )}
         </nav>
-
         <div className="container mt-3">
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/chapter" component={ChapterDetail} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/stories/:id" component={Story} />
+
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardAuthor} />
             <Route path="/admin" component={BoardAdmin} />
           </Switch>
         </div>
+
+
       </div>
+      {/* <Footer></Footer> */}
     </Router>
     // </Provider>
+
+
   );
 };
 

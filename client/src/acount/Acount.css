@@ -1,0 +1,7 @@
+.title-list {
+    text-align: left;
+    height: 40px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #CCC;
+    position: relative;
+}
