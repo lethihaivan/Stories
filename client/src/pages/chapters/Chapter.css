@@ -1,27 +1,128 @@
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 .chapter{
-    color:red;
+    color: black;
 }
-
+.chapter .chapter-c {
+    font-size: 26px;
+}
 #list-chapter, .comment-box {
     background-color: #F4F4F4;
     text-align: center;
     margin-top: 10px;
 }
+.chapter .chapter-c {
+    font-family: "Palatino Linotype","Arial","Times New Roman",sans-serif;
+    line-height: 180%;
+    color: #2B2B2B;
+    font-size: 22px;
+    text-align: left;
+    word-wrap: break-word;
+}
+.chapter-c .ads-responsive, #chapterads-bottom {
+    min-height: initial;
+    margin: 25px auto;
+    max-width: 100%;
+}
+
+.chapter hr.chapter-end {
+    background: url(//static.8cache.com/img/spriteimg_new_white_op.png) 0 -51px no-repeat;
+    width: 277px;
+    height: 35px;
+}
+.chapter hr.chapter-start, .chapter hr.chapter-end {
+    border: 0;
+    margin: 10px auto;
+    display: table;
+}
+
+.ch
 .nav-chapter {
     float: left;
     max-width: 160px;
     margin: 0;
     padding: 1em;
 }
-.nav-chapter  ul {
-    list-style-type: none;
-    padding: 0;
+.chapter hr.chapter-start {
+    background: url(//static.8cache.com/img/spriteimg_new_white_op.png) -200px -27px no-repeat;
+    width: 59px;
+    height: 20px;
 }
+.navbar-static-top {
+    border-radius: 0;
+}
+.chapter-nav .btn-group .chapter_jump {
+    margin: 0 5px;
+    text-align: left;
+}
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.navbar-static-top {
+    z-index: 1000;
+    border-width: 0 0 1px;
+}
+#wrap {
+    min-height: 100%;
+    min-height: calc(100% - 117px);
+    height: auto !important;
+    height: 100%;
+}
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.navbar-breadcrumb {
+    background: #ECECEC;
+    top: 0px;
+    border-top: 1px solid #476171;
+    font-size: 14px;
+    margin: 0px;
+    width: 1110px;
+    bottom: 10px;
+}
+
+
+.breadcrumb>li+li {
+    content: "/\00a0";
+    padding: 0 5px;
+    color: #ccc;
+}
+
+.breadcrumb-container {
+    height: 30px;
+    line-height: 30px;
+    color: #4E4E4E;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Roboto Condensed',Tahoma,sans-serif;
+}
+.container {
+    width: 1170px;
+    
+}
+.chapter hr.chapter-start, .chapter hr.chapter-end {
+    border: 0;
+    margin: 10px auto;
+    display: table;
+}
+
 .content-chapter
 {
-    width: 700px; /* kích thước chiều rộng của vùng nội dung */
+    width: 100%; /* kích thước chiều rộng của vùng nội dung */
     float: left; /* canh div từ trái sang */
+    background-color: #F4F4F4;
+
 }
 .btn-group, .btn-group-vertical{
     position: relative;

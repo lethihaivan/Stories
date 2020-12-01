@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import ChapterDetail from "./pages/chapters/ChapterDetail";
 import Story from "./pages/stories/Story";
+import Chapter from "./pages/chapters/Chapter";
 import Login from "./acount/Login";
 import Register from "./acount/Register";
 import Home from "./acount/Home";
@@ -30,11 +31,11 @@ const App = () => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-
+  console.log(currentUser);
   useEffect(() => {
     if (currentUser) {
-      setShowAuthorBoard(currentUser.roles.includes("ROLE_AUTHOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+      //setShowAuthorBoard(currentUser.roles.includes("admin"));
+      //setShowAdminBoard(currentUser.role.includes("admin"));
     }
   }, [currentUser]);
 
@@ -115,10 +116,10 @@ const App = () => {
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/chapter" component={ChapterDetail} />
+            <Route exact path="/chapter/:id" component={ChapterDetail, Chapter} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/stories/:id" component={Story} />
-
+            <Route exact path="/stories/:id/:index" component={Chapter} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardAuthor} />

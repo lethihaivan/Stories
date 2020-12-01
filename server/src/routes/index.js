@@ -1,19 +1,24 @@
-const express = require('express')
-const chapterApi = require('../components/chapter/chaptersRoute')
-const categoryApi = require('../components/category/categoriesRoute')
-const authApi = require('../components/auth/route')
-const userApi = require('../components/user/route')
-const commentApi = require('../components/comment/commentsRoute')
-const storyApi = require('../components/story/storiesRoute')
+import { Router } from 'express'
 
-const router = express.Router()
+import authApi from '../api/auth/auth.route'
+import userApi from '../api/user/user.route'
+import authorApi from '../api/author/author.route'
+import chapterApi from '../api/chapter/chapter.route'
+import categoryApi from '../api/category/category.route'
+import commentApi from '../api/comment/comment.route'
+import storyApi from '../api/story/story.route'
+import ratingApi from '../api/rating/rating.route'
+
+const router = new Router()
 
 router.use('/auth', authApi)
 router.use('/users', userApi)
+router.use('/authors', authorApi)
 router.use('/chapters', chapterApi)
 router.use('/categories', categoryApi)
 router.use('/comments', commentApi)
 router.use('/stories', storyApi)
+router.use('/ratings', ratingApi)
 
-module.exports = router
+export default router
 

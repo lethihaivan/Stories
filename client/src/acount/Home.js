@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Stories from "../pages/stories/Stories";
+import Chapter from "../pages/chapters/Chapter";
+import Category from "../pages/categories/Category";
 import StoryItem from "../pages/stories/StoryItem";
 //import { storyAPI } from "../services";
 import { Link } from "react-router-dom";
@@ -16,33 +17,28 @@ const Home = () => {
         setStories(response.data);
       },
       (error) => {
-        const _content =
+        const stories =
           (error.response && error.response.data) ||
           error.message ||
           error.toString();
-        console.log(_content);
-        // setStories(_content);
+        console.log(stories);
       }
     );
   }, []);
-
   console.log(stories);
   return (
     <div >
       <body>
         <div id="wrap">
-          <div className="title-list">
+          <div className="title-list"
+            style={{ "display": "flex" }}>
             <h2><a href="" title="Truyện hot">
               Truyện hot <span className="glyphicon glyphicon-fire"></span></a>
-            </h2><select id="hot-select" className="form-control new-select" aria-label="Chọn thể loại">
-              <option value="all">Tất cả</option>
-              <option value="1">Tiên Hiệp</option>
-              <option value="2">Kiếm Hiệp</option>
-              <option value="3">Ngôn Tình</option>
-              <option value="4">Đô Thị</option>
-              <option value="20">Quan Trường</option>
-              <option value="6">Võng Du</option>
-              <option value="31">Khác</option></select></div>
+            </h2>
+            <Category />
+
+
+          </div>
 
           <div className="index-intro" style={{ display: 'block' }} >
             <div className="item  story" >
@@ -54,8 +50,7 @@ const Home = () => {
 
 
           {/*  {stories.map((c) => <Link to={`/stories/${c.id}`} key={c.id}>{c.name}</Link>)} */}
-
-          {stories.map(story => <StoryItem key={story._id} {...story} />)}
+          {stories.data && stories.data.map(story => <StoryItem key={story.id} {...story} />)}
 
           <div className="container" id="list-index">
             <div class="row text-center"></div>
@@ -104,6 +99,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+
         </div>
       </body>
     </div>

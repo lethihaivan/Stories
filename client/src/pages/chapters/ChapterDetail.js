@@ -1,38 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 //import { ChapterAPI } from '../../services'
-//import Icon from '@material-ui/core/Icon';
+import * as StoryAPI from "../../services/stories";
 import './Chapter.css'
 import { Link } from "react-router-dom";
 //  chapter {chapter.id} / {chapter.chapter_name}
-class ChapterDetail extends React.Component {
-    state = {
-        id: "",
-        story: {},
-        activeChapter: '',
-        modalTitle: '',
-        modalDescription: '',
-        isLoading: false,
-        errors: null
-    }
-    getStory() {
-        axios
-            .get(`http://localhost:9091/api/stories/${this.state.id}`)
-            .then(response => {
-                this.setState({
-                    story: response.data, /// .story,
-                    isLoading: true
-                });
-                console.log(response.data)
-            })
-            .catch(error => this.setState({ error, isLoading: false }));
-    }
-    componentDidMount() {
-        console.log(this.props.id)
-        // this.getStory(id);
-    }
 
-    handleModalOpen = (idx) => {
+const ChapterDetail = ({ match }) => {
+    console.log(match.params.id);
+    const [story, setStories] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+
+    useEffect(() => {
+        setIsLoading(true);
+        StoryAPI.getById(match.params.id).then(res => {
+            const story = res;
+            setStories(story);
+            setIsLoading(false);
+
+        });
+    }, []);
+
+
+    const handleModalOpen = (idx) => {
         this.setState({
             activeChapter: idx,
             modalTitle: this.state.story.chapters[idx].name,
@@ -41,12 +32,12 @@ class ChapterDetail extends React.Component {
     };
 
 
-    handleChange(event) {
+    const handleChange = (event) => {
         this.setState({ story: event.target.value, id: event.target.value });
     }
 
 
-    handleNextProject = () => {
+    const handleNextProject = () => {
 
         var arr = this.state.story.chapters.length;
         var idx = this.state.activeChapter + 1;
@@ -59,7 +50,7 @@ class ChapterDetail extends React.Component {
         });
     }
 
-    handlePrevProject = () => {
+    const handlePrevProject = () => {
         var arr = this.state.story.chapters.length;
         var idx = this.state.activeChapter;
         if (idx === 0) {
@@ -74,58 +65,46 @@ class ChapterDetail extends React.Component {
         });
     }
 
-    render() {
-        console.log(this.state)
+    function nextTitle(idx, arr) {
+        var i = idx + 1;
+        var i = i % arr.length;
+        return arr[i];
+    }
 
-        const { story, isLoading } = this.state;
-        function nextTitle(idx, arr) {
-            var i = idx + 1;
-            var i = i % arr.length;
-            return arr[i];
+    function prevTitle(idx, arr) {
+        if (idx === 0) {
+            var i = arr.length - 1;
+        } else {
+            var i = idx - 1;
         }
+        return arr[i];
+    }
+    return (
+        <div>
+            <div className="nav-chapter" >
+                <ul>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"> </a></li>
+                    <li><a href="#"></a></li>
+                </ul>
 
-        function prevTitle(idx, arr) {
-            if (idx === 0) {
-                var i = arr.length - 1;
-            } else {
-                var i = idx - 1;
-            }
-            return arr[i];
-        }
-        return (
+            </div >
             <div>
-                <div className="nav-chapter" >
-                    <ul>
-                        <li><a href="#"></a></li>
-                        <li><a href="#"> </a></li>
-                        <li><a href="#"></a></li>
-                    </ul>
+                <div className="content-chapter">
+                    <h3>Ten Truyen </h3>
+                    <h5><Link> Ten chuong</Link></h5>
+                    <div>
 
-                </div >
-                <div>
-                    <div className="content-chapter">
-                        <h3>Ten Truyen </h3>
-                        <h5><Link> Ten chuong</Link></h5>
-                        <div>
-                            <Modal
-                                title={this.state.modalTitle}
-                                description={this.state.modalDescription}
-                                previousTitle={prevTitle(this.state.activeProject, story)}
-                                nextTitle={nextTitle(this.state.activeProject, story)}
-                                onModalClose={this.handleModalClose}
-                                onNext={this.handleNextProject}
-                                onPrev={this.handlePrevProject}
-                            />
 
-                        </div>
                     </div>
                 </div>
-
             </div>
 
-        );
+        </div>
 
-    }
+    );
+
+
 }
 
 class Modal extends React.Component {
@@ -145,3 +124,15 @@ class Modal extends React.Component {
 
 
 export default ChapterDetail;
+
+
+/*
+{ "_id" : ObjectId("5063114bd386d8fadbd6b004"),
+"description" : "Connan",
+ "rating": 0,
+ "status": "unfulfilled",
+"categories": [],
+"chapters " :[] ,
+ "name": "Connan tham tu lung danh",
+ "author" :ObjectId("5fb491a7807f1b2b506be175")
+} */

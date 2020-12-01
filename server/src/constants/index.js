@@ -1,9 +1,9 @@
-module.exports = {
-  MIN_PASSWORD: 6,
-  MAX_PASSWORD: 30,
-  TIME: {
-    HOUR: 60 * 60,
-    ONE_DAY: 60 * 60 * 24,
-    WEEK: 60 * 60 * 24 * 7,
-  },
+
+export const MIN_PASSWORD = 6
+export const MAX_PASSWORD = 30
+export const TIME = {
+  HOUR: 60 * 60,
+  ONE_DAY: 60 * 60 * 24,
+  WEEK: 60 * 60 * 24 * 7,
 }
+export const LIMIT_EACH_PAGE = 20

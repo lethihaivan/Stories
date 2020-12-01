@@ -115,6 +115,14 @@ h3 {
     border: 1px solid;
     background: #f4f4f4;
 }
+.desc .desc-text {
+    margin-top: 10px;
+    height: 204px;
+    font-size: 12px;
+    overflow: hidden;
+    text-align: left;
+    font-family: "Arial",sans-serif;
+}
 .new-select, .filter {
     line-height: 40px;
     height: 40px;
@@ -258,13 +266,8 @@ p {
     margin-inline-end: 0px;
 }
 
-.desc .desc-text {
-    margin-top: 10px;
-    height: 204px;
-    font-size: 12px;
-    overflow: hidden;
-    text-align: left;
-    font-family: "Arial",sans-serif;
+.desc .desc-text.desc-text-full {
+    height: 304px;
 }
 .col-info-desc h3.title {
     font-size: 24px;
