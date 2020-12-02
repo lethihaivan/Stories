@@ -7,8 +7,11 @@ instance.defaults.baseURL = 'http://localhost:9091/api'
 
 instance.interceptors.request.use((config)=> {
     // Do something before request is sent
-    
-    console.log(config)
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.authorization = `Bearer ${token}`
+    }
+
     return config;
 }, function (error) {
   // Do something with request error

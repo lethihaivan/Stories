@@ -19,6 +19,9 @@ import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { history } from "./helpers/history";
 import Footer from "./acount/Footer"
+import AdminPage from "./pages/admin/AdminRouter";
+
+const regex = new RegExp(/\/admin/)
 const App = () => {
   const [showAuthorBoard, setShowAuthorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -33,6 +36,8 @@ const App = () => {
   }, [dispatch]);
   console.log(currentUser);
   useEffect(() => {
+    console.log(window.location.pathname, '123123')
+
     if (currentUser) {
       //setShowAuthorBoard(currentUser.roles.includes("admin"));
       //setShowAdminBoard(currentUser.role.includes("admin"));
@@ -42,6 +47,14 @@ const App = () => {
   const logOut = () => {
     dispatch(logout());
   };
+
+  if (regex.test(window.location.pathname)) {
+    return (
+      <Router history={history}>
+        <Route path="/admin" component={AdminPage} />
+      </Router>
+    )
+  }
 
   return (
     // <Provider store={store} >
@@ -123,11 +136,8 @@ const App = () => {
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardAuthor} />
-            <Route path="/admin" component={BoardAdmin} />
           </Switch>
         </div>
-
-
       </div>
       {/* <Footer></Footer> */}
     </Router>
