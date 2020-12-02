@@ -51,7 +51,7 @@ const Login = (props) => {
       dispatch(login(username, password))
         .then(() => {
           props.history.push("/profile");
-          window.location.reload();
+          redirect();
         })
         .catch(() => {
           setLoading(false);
@@ -60,6 +60,10 @@ const Login = (props) => {
       setLoading(false);
     }
   };
+
+  const redirect = () => {
+    props.history.push('/')
+  }
 
   if (isLoggedIn) {
     return <Redirect to="/profile" />;

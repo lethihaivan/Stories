@@ -1,29 +1,27 @@
-require('dotenv').config()
-const path = require('path')
-const express = require('express')
-const morgan = require('morgan')
-const helmet = require('helmet')
-const cors = require('cors')
+import express from 'express'
+import morgan from 'morgan'
+import helmet from 'helmet'
+import cors from 'cors'
+import passport from 'passport'
 
-const db = require('./db')
-const apiRoute = require('./routes')
+import db from './configs/db'
+import apiRoute from './routes'
+import { mongo, port, env, apiRoot } from './configs/variables'
+
 const app = express()
 
 app.use(cors())
 app.use(helmet())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../../client/build')))
-process.env.NODE_ENV !== 'test' && app.use(morgan('tiny'))
-app.use('/api', apiRoute)
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(passport.initialize())
+// app.use('/static', express.static(__dirname + '/src/public'))
+// console.log(path.join(__dirname, './assets/images'))
+env !== 'test' && app.use(morgan('tiny'))
+app.use(apiRoot, apiRoute)
 
-// DB_URI=mongodb://127.0.0.1:27017/webStories
-const DB_URI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
-const PORT = process.env.PORT || 9091;
-// console.log(DB_URI)
-
-db.connect(DB_URI).then(() => {
-  app.listen(PORT, () => console.log("Listening server port: " + PORT));
+db.connect(mongo.uri).then(() => {
+  app.listen(port, () => console.log("Listening server port: " + port));
 });
 
 // app.get('*', (req, res) => {
