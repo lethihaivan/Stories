@@ -17,6 +17,7 @@
     "glyphicons": "^0.2.0",
     "jodit-react": "^1.0.66",
     "mdbreact": "^4.27.0",
+    "next-routes": "^1.4.2",
     "prop-types": "^15.7.2",
     "ra-data-simple-rest": "^3.9.3",
     "react": "^17.0.1",

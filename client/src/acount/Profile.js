@@ -1,40 +1,47 @@
 import React from "react";
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react"
+import axios from "axios";
 
+import authHeader from "../services/auth-header";
 const Profile = () => {
   const { isLoggedIn } = useSelector(state => state.auth);
-  const { user: currentUser } = useSelector((state) => state.auth);
-  console.log(currentUser);
-  // if (!currentUser) {
-  //   return <Redirect to="/login" />;
-  // }
+  // const { user: currentUser } = useSelector((state) => state.auth);
+  // console.log(currentUser);
+
+  const [usern, setUser] = useState([]);
+  useEffect(() => {
+    axios.get(`localhost:9091/api/auth/me`, { headers: authHeader() }).then(response => {
+      if (response.data) {
+        setUser({ usern: response.data, isLoggedIn: true });
+        console.log(usern && usern);
+      }
+    }).catch((error) => {
+      console.log(error.response)
+    });
+  }, []);
+
   console.log(isLoggedIn);
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
-
+  console.log(usern && usern);
   return (
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.username}</strong> Profile
+          <strong>{usern.username}</strong> Profile
         </h3>
       </header>
+
       <p>
-        <strong>Token:</strong> {currentUser.token.substring(0, 20)} ...{" "}
-        {currentUser.token.substr(currentUser.token.length - 20)}
+        <strong>Id:</strong> {usern.id}
       </p>
-      <p>
-        <strong>Id:</strong> {currentUser.id}
-      </p>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
-      <strong>Authorities:</strong>
+
       <ul>
-        {currentUser.roles &&
-          currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+        {usern.roles &&
+          usern.roles.map((role, index) => <li key={index}>{role}</li>)}
       </ul>
     </div>
   );

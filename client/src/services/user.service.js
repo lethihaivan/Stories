@@ -6,6 +6,10 @@ const getPublicContent = () => {
     return axios.get(API_URL + '/stories');
 
 }
+const getInFor = () => {
+    return axios.get(API_URL + '/me');
+
+}
 const getUserBoard = () => {
     return axios.get(API_URL + '/user', { headers: authHeader() });
 }
@@ -18,6 +22,7 @@ const getAdminBoard = () => {
 };
 
 export default {
+    getInFor,
     getPublicContent,
     getUserBoard,
     getAuthorBoard,
