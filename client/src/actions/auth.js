@@ -5,6 +5,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
+  UPDATE_PROFILE,
 } from './types';
 import AuthService from '../services/auth.service';
 export const register = (username, email, password) => (dispatch) => {
@@ -67,6 +68,10 @@ export const login = (username, password) => (dispatch) => {
     }
   );
 };
+
+export const updateProfile = (profile) => (
+  { type: UPDATE_PROFILE, payload: profile });
+
 
 export const logout = () => (dispatch) => {
   AuthService.logout();

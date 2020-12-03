@@ -1,30 +1,43 @@
-import PropTypes from 'prop-types';
+
 import React, { useEffect, useState } from "react";
 import * as StoryAPI from "../../services/stories";
 import "./Story.css";
-import { Link } from 'react-router-dom'
-import ChapterDetail from "../chapters/ChapterDetail"
+
+import GetChapterOfStory from "./GetChapterOfStory"
 
 //import Flag from 'react-flags';
-const Story = ({ match }) => {
+const Story = ({ match, location }) => {
   console.log(match.params.id);
+  const storyId = match.params.id
   const [story, setStories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({ story: false, chapter: false });
+  const [chapters, setChapters] = useState([])
 
   useEffect(() => {
-    setIsLoading(true);
-    StoryAPI.getById(match.params.id).then(res => {
+    setIsLoading({ ...isLoading, story: true });
+    StoryAPI.getById(storyId).then(res => {
       const story = res;
       setStories(story);
-      setIsLoading(false);
-
-    });
+    })
+      .catch(err => console.log(err))
+      .finally(() => setIsLoading({ ...isLoading, story: false }))
   }, []);
+
+  /* 
+    useEffect(() => {
+      // Call again each when history.push query params. -> chapter updated
+      setIsLoading({ ...isLoading, chapter: true });
+      ChapterAPI.getChaptersOfStory(storyId)
+        .then(chapters => setChapters(chapters))
+        .catch(err => console.log(err))
+        .finally(() => setIsLoading({ ...isLoading, chapter: false }))
+    }, [location.search]) */
+
   console.log(story && story);
   return (
     <div>
       {
-        isLoading ? (
+        isLoading.story ? (
           <div>Loading ...</div>
         ) : (
             <div>
@@ -70,7 +83,7 @@ const Story = ({ match }) => {
                 </div>
 
               </div>
-              {/* <ChapterDetail ></ChapterDetail> */}
+
             </div>
           )
       }
@@ -80,25 +93,8 @@ const Story = ({ match }) => {
           <div className="row">
             <div className="col-xs-12 col-sm-6 col-md-6">
               <ul className="list-chapter">
-
-                {story && story.chapters && story.chapters.map((chapter) => (
-                  <li key={chapter.id} className='chapter'
-                    style={
-                      {
-                        "padding": "10px 0",
-                        "white-space": "nowrap",
-                        "overflow": "hidden",
-                        "text-overflow": "ellipsis",
-                      }
-                    }
-                  >
-                    <span class="glyphicon glyphicon-certificate"></span>
-
-                    <Link to={`${chapter.storyId}/${chapter.index}`} className='chapter' key={chapter.index}>
-                      <span class="chapter-text"><span> Chuong {chapter.index} :  {chapter.name} </span></span></Link>
-                  </li>
-                ))}
-
+                <h1></h1>
+                <GetChapterOfStory storyId={story && story && story.id} > </GetChapterOfStory>
 
               </ul>
             </div>

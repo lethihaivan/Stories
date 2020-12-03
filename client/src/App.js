@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import ChapterDetail from "./pages/chapters/ChapterDetail";
 import Story from "./pages/stories/Story";
+import GetChapterOfStory from "./pages/stories/GetChapterOfStory";
 import Chapter from "./pages/chapters/Chapter";
 import Login from "./acount/Login";
 import Register from "./acount/Register";
@@ -119,6 +120,11 @@ const App = () => {
             <Route exact path="/chapter/:id" component={ChapterDetail, Chapter} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/stories/:id" component={Story} />
+
+            <Route exact path="/stories/:storyId/chapters"
+              render={props => <GetChapterOfStory {...props.match.params} />} />
+
+
             <Route exact path="/stories/:id/:index" component={Chapter} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />

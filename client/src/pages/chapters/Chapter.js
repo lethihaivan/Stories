@@ -18,7 +18,7 @@ const Chapter = ({ match }) => {
 
         });
     }, []);
-    console.log(match.params.index)
+    console.log(story && story)
     return (
         <div id="wrap">
             <div id="space-between" className="container chapter">

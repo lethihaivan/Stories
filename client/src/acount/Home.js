@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Chapter from "../pages/chapters/Chapter";
 import Category from "../pages/categories/Category";
 import StoryItem from "../pages/stories/StoryItem";
+import GetChapterOfStory from "../pages/stories/GetChapterOfStory";
 //import { storyAPI } from "../services";
-import { Link } from "react-router-dom";
+import SearchStory from "../components/Search/SearchStory"
 import UserService from "../services/user.service";
 import "../pages/stories/Story.css";
-//import "./Acount.css";
 const Home = () => {
   // const [content, setContent] = useState("");
   const [stories, setStories] = useState([]);
@@ -30,6 +30,7 @@ const Home = () => {
     <div >
       <body>
         <div id="wrap">
+
           <div className="title-list"
             style={{ "display": "flex" }}>
             <h2><a href="" title="Truyện hot">
@@ -98,10 +99,17 @@ const Home = () => {
                   </div></div>
               </div>
             </div>
+            <div >
+
+              <SearchStory />
+            </div>
           </div>
 
         </div>
+
+
       </body>
+
     </div>
 
   );
