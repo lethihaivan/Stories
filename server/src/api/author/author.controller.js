@@ -25,18 +25,15 @@ const updateInfo = async ({ params, body }, res) => {
     .catch(err => res.status(404).json(err))
 }
 
-const storiesOfAuthor = async ({ params, query }, res) => {
-  try {
-    const { id } = params
-    const filter = { author: id }
-    const total = await Story.countDocuments(filter)
-    const data = Story.find(filter).populate(populate)
-
-    const stories = await pagination(data, query)
-    res.status(200).json({ ...stories, total })
-  } catch (err) {
-    res.status(400).json(err)
-  }
+const storiesOfAuthor = async ({ querymen: { query, select, cursor }, params }, res) => {
+  query.author = params.id
+  console.log(query, select, cursor, params)
+  Story.find(query, select, cursor).populate(populate)
+    .then(async data => {
+      const total = await Story.countDocuments(query).exec()
+      res.status(200).json({ data, total })
+    })
+    .catch(err => res.status(400).json(err))
 }
 
 export { create, updateInfo, storiesOfAuthor, index }

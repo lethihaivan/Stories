@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import { Redirect, Link } from 'react-router-dom';
 import { register } from "../actions/auth";
 
 const required = (value) => {
@@ -98,19 +98,19 @@ const Register = () => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12" style={{ "fontSize": "15px" }}>
       <div className="card card-container">
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src="https://www.rd.com/wp-content/uploads/2019/11/heart-book.jpg"
           alt="profile-img"
           className="profile-img-card"
         />
 
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
+            <div >
+              <div className="form-group" >
+
                 <Input
                   type="text"
                   className="form-control"
@@ -118,11 +118,11 @@ const Register = () => {
                   value={username}
                   onChange={onChangeUsername}
                   validations={[required, vusername]}
+                  placeholder="Username"
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Full Name</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -130,11 +130,11 @@ const Register = () => {
                   value={fullName}
                   onChange={onChangeEmail}
                   validations={[required, validFullName]}
+                  placeholder="Full Name"
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
                 <Input
                   type="password"
                   className="form-control"
@@ -142,15 +142,41 @@ const Register = () => {
                   value={password}
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
+                  placeholder="Password"
                 />
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-primary btn-block" style={{ "fontSize": "20px" }}>Sign Up</button>
+              </div>
+              <div style={{
+                "textAlign": "center",
+                "marginBottom": "15px"
+              }}>
+                Or sign with </div>
+              <div class="links">
+                <div class="facebook">
+                  <i class="fab fa-facebook-f"><span>Facebook</span></i>
+                </div>
+                <div class="instagram">
+                  <i class="fab fa-instagram"><span>Instagram</span></i>
+                </div>
+              </div>
+              <div style={{
+                "textAlign": "center",
+                "marginBottom": "15px"
+              }}>
+                Have account?
+            <Link to={"/login"}   >
+                  Login
+                </Link>
               </div>
             </div>
-          )}
-
+          )
+          }
+          {successful &&
+            (<Redirect to="/home" />)
+          }
           {message && (
             <div className="form-group">
               <div className={successful ? "alert alert-success" : "alert alert-danger"} role="alert">

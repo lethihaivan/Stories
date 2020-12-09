@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
 
-const schema = mongoose.Schema(
+const CategorySchema = mongoose.Schema(
   {
     title: { type: String, required: true, },
   },
@@ -13,5 +14,6 @@ const schema = mongoose.Schema(
     }
   }
 )
-const model = mongoose.model('Category', schema)
-export default model
+CategorySchema.plugin(mongooseKeywords, { paths: ['title'] });
+const Category = mongoose.model('Category', CategorySchema)
+export default Category

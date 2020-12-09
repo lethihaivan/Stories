@@ -6,7 +6,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Link } from "react-router-dom";
 import { login } from "../actions/auth";
-
+import './Acount.css'
 const required = (value) => {
   if (!value) {
     return (
@@ -70,17 +70,21 @@ const Login = (props) => {
   }
 
   return (
-    <div className="col-md-12">
+
+    <div className="col-md-12" style={{
+      "fontSize": "15px"
+    }}>
       <div className="card card-container">
+
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src="https://www.rd.com/wp-content/uploads/2019/11/heart-book.jpg"
           alt="profile-img"
           className="profile-img-card"
         />
 
         <Form onSubmit={handleLogin} ref={form}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
+          <div className="form-group" >
+
             <Input
               type="text"
               className="form-control"
@@ -88,11 +92,12 @@ const Login = (props) => {
               value={username}
               onChange={onChangeUsername}
               validations={[required]}
+              placeholder="Username"
             />
+
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
             <Input
               type="password"
               className="form-control"
@@ -100,6 +105,7 @@ const Login = (props) => {
               value={password}
               onChange={onChangePassword}
               validations={[required]}
+              placeholder="Password"
             />
           </div>
 
@@ -108,7 +114,7 @@ const Login = (props) => {
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
-              <span>Login</span>
+              <span style={{ "fontSize": "20px" }}>Login</span>
             </button>
           </div>
 
@@ -122,8 +128,32 @@ const Login = (props) => {
           <Link ></Link>
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+        <div style={{
+          "textAlign": "center",
+          "marginBottom": "15px"
+        }}>
+          Or login with </div>
+        <div class="links">
+          <div class="facebook">
+            <i class="fab fa-facebook-f"><span>Facebook</span></i>
+          </div>
+          <div class="instagram">
+            <i class="fab fa-instagram"><span>Instagram</span></i>
+          </div>
+        </div>
+        <div style={{
+          "textAlign": "center",
+          "marginBottom": "15px"
+        }}>
+          Don't have account?
+          <Link to={"/register"} >
+            Sign Up
+                </Link>
+        </div>
       </div>
+
     </div>
+
   );
 };
 

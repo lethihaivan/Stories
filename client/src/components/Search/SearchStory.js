@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { search } from './utils'
-import SrotySearch from './SrotySearch';
+import { Redirect } from "react-router-dom"
 
 class SearchStory extends Component {
-    state = {
-        stories: null,
-        loading: false,
-        value: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            stories: null,
+            loading: false,
+            value: ''
+        };
 
+        console.log(this.props)
+    }
     search = async val => {
         this.setState({ loading: true });
         // const res = await axios(
@@ -17,35 +20,38 @@ class SearchStory extends Component {
             `http://localhost:9091/api/stories?page=1&limit=5&q=${val}`
         );
         const stories = res;
-
+        // const key = val;
         this.setState({ stories, loading: false });
     };
     onChangeHandler = async e => {
         this.search(e.target.value);
         this.setState({ value: e.target.value });
+        // this.props.history.push(`/search/${e.target.value}`);
     };
-
-    get renderMovies() {
-        let stories = <h1>There's no movies</h1>;
-        if (this.state.stories) {
-            stories = <SrotySearch list={this.state.stories} />;
-        }
-
-        return stories;
-    }
-
     render() {
+        console.log(this.state.stories);
         return (
             <div >
-                <input
+                <input style={{
+                    'marginTop': '20px',
+                    "width": "300px",
+                    "height": "40px",
+                    'marginLeft': '80px',
+                    'fontSize': '15px'
+
+                }}
                     value={this.state.value}
                     onChange={e => this.onChangeHandler(e)}
                     placeholder="Type something to search"
                 />
-                {this.renderMovies}
+                {this.state.value.length > 0 &&
+                    <Redirect to={{
+                        pathname: `/search/${this.state.value}`,
+                        state: { stories: this.state.stories }
+                    }} />
+                }
             </div>
         );
     }
 }
-
 export default SearchStory;

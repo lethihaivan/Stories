@@ -1,15 +1,18 @@
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 .container input {
 	width: 100%;
-	padding: 16px;
-	font-size: 36px;
+	padding: 2px;
+	font-size: 15px;
 	font-style: italic;
 	color: #444;
 	box-sizing: border-box;
-	outline: none;
+    outline: none;
+    height: 40px;
 }
 
-
+a, a:hover, a:focus {
+    color: #4E4E4E;
+}
 /*Show and hide*/
 .show {
 	display: inline-block;
@@ -85,18 +88,20 @@ index-intro div.title {
     height: auto !important;
     height: 100%;
 }
-h3 {
-    font-size: 24px;
-}
+
+
 .full-label {
+    position: absolute;
+    bottom: 0;
+    left: -7px;
+    z-index: 1;
+  
+    background-image: url("https://static.8cache.com/img/full-label.png");
+    background-repeat: no-repeat;
+  
     width: 34px;
     height: 50px;
-    position: absolute;
-    display: block;
-    margin: 140px 0 0 -7px;
-    z-index: 1;
-    background: transparent url(//static.8cache.com/img/full-label.png) no-repeat;
-}
+  }
 .title-list {
     text-align: left;
     height: 40px;
@@ -123,19 +128,7 @@ h3 {
     text-align: left;
     font-family: "Arial",sans-serif;
 }
-.new-select, .filter {
-    line-height: 40px;
-    height: 40px;
-    width: initial;
-    border-radius: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px;
-    font-family: 'Roboto Condensed',Tahoma,sans-serif;
-    text-transform: uppercase;
-    background-color: transparent;
-}
+
 .title-list>h2, .title-list>h4 {
     font-family: 'Roboto Condensed',Tahoma,sans-serif;
     font-size: 20px;
@@ -215,20 +208,11 @@ h3 {
     border-bottom: 1px dashed #CCC;
     overflow: hidden;
 }
-h3 {
-    font-family: inherit;
-    font-weight: 500;
-    line-height: 1.1;
-	color: inherit;
-	font-size: inherit;
-	margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
+
 a, a:hover, a:focus {
     color: #4E4E4E;
     cursor: pointer;
+    font-size: 15px;
 }
 .list>.row>div, #truyen-slide .caption > h3, #truyen-slide .caption>small {
     white-space: nowrap;
@@ -307,3 +291,26 @@ p {
     border-right: 1px solid #DDD;
     font-family: "Roboto Condensed",Tahoma,sans-serif;
 }
+
+.item-top-title {
+    position: absolute;
+    bottom: 0;
+    z-index: 0;
+  
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .item-top-name {
+    font-style: normal;
+    color: #f4f4f4;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .item-top-name.item-top-name-size {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFFC57;
+  }
+  

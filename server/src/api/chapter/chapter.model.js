@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
 
-const schema = mongoose.Schema(
+const ChapterSchema = mongoose.Schema(
   {
     index: { type: Number, required: true },
     name: { type: String, required: true },
@@ -12,9 +13,13 @@ const schema = mongoose.Schema(
     versionKey: false,
     toJSON: {
       virtuals: true,
-      transform: (obj, ret) => { delete ret._id }
+      transform: (obj, ret) => {
+        delete ret._id
+        delete ret.keywords
+      }
     }
   }
 )
-const model = mongoose.model('Chapter', schema)
-export default model
+ChapterSchema.plugin(mongooseKeywords, { paths: ['name', 'storyId'] });
+const Chapter = mongoose.model('Chapter', ChapterSchema)
+export default Chapter

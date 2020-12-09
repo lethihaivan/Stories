@@ -12,6 +12,7 @@ import "mdbreact/dist/css/mdb.css";
 ReactDOM.render(
   <Provider store={store}>
     <App />
+
   </Provider>,
   document.getElementById('root')
 );

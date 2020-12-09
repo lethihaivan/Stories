@@ -4,7 +4,7 @@ const roles = ['user', 'admin']
 const userSchema = mongoose.Schema({
   username: { type: String, require: true, trim: true, unique: true, lowercase: true, },
   fullName: { type: String, require: true },
-  password: { type: String, require: true, minLength: 6, maxLength: 30 },
+  password: { type: String, require: true, minLength: 6, maxLength: 100 },
   role: { type: String, enum: roles, default: 'user' }
 }, {
   timestamps: true,

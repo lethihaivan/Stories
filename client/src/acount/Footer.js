@@ -8,7 +8,6 @@ const Footer = () => {
     left: 0;
     bottom: -30px;
     width: 100%;
-    background-color: gray;
     color: white;
     text-align: center;
     clear: both;
@@ -17,8 +16,12 @@ const Footer = () => {
     return (
 
         <Title>
+            <h1 style={{ "color": "dark" }}>
+                f
+                </h1>
 
             <footer className="page-footer font-small cyan darken-3">
+
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 py-5">

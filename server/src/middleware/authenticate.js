@@ -1,5 +1,6 @@
 import passportJwt from '../configs/passport'
-import User from '../api/user/user.model'
+// import { passport as passportJwt } from '../configs'
+// import User from '../api/user/user.model'
 
 
 export const authenticate = (roles = ['user', 'admin']) => (req, res, next) =>

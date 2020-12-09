@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
+
 import { populate, status } from './story.constants'
 import Rating from '../rating/rating.model'
-const schema = mongoose.Schema(
+
+const StorySchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String, default: '' },
@@ -19,11 +22,15 @@ const schema = mongoose.Schema(
     versionKey: false,
     toJSON: {
       virtuals: true,
-      transform: (obj, ret) => { delete ret._id }
+      transform: (obj, ret) => {
+        delete ret._id
+        // delete ret.keywords
+      }
     }
   }
 )
-schema.virtual('comments', {
+
+StorySchema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
   foreignField: 'storyId',
@@ -32,14 +39,15 @@ schema.virtual('comments', {
   }
 });
 
-schema.methods.populateStory = async function () {
+StorySchema.methods.populateStory = async function () {
   return await this.populate(populate).execPopulate()
 }
 
-schema.methods.getRating = async function () {
+StorySchema.methods.getRating = async function () {
   const ratings = await Rating.find({ storyId: this._id })
   const point = ratings.reduce((acc, cur) => (acc + cur.point) / ratings.length, 0)
   return point.toFixed(2)
 }
-const model = mongoose.model('Story', schema)
-export default model
+StorySchema.plugin(mongooseKeywords, { paths: ['name', 'author'] })
+const Story = mongoose.model('Story', StorySchema)
+export default Story

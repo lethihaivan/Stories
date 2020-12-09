@@ -14,15 +14,17 @@ import Profile from "./acount/Profile";
 import BoardUser from "./acount/BoardUser";
 import BoardAuthor from "./acount/BoardAuthor";
 import BoardAdmin from "./acount/BoardAdmin";
-
-//import Search from "./components/Search/Search"
+import Footer from "./acount/Footer"
+import AppPagination from "./components/Pagination/AppPagination"
+import SearchStory from "./components/Search/SearchStory"
+import SrotySearch from "./components/Search/SrotySearch"
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { history } from "./helpers/history";
-import Footer from "./acount/Footer"
+
 import AdminPage from "./pages/admin/AdminRouter";
 
-const regex = new RegExp(/\/admin/)
+//const regex = new RegExp(/\/admin/)
 const App = () => {
   const [showAuthorBoard, setShowAuthorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -48,17 +50,16 @@ const App = () => {
   const logOut = () => {
     dispatch(logout());
   };
-
-  if (regex.test(window.location.pathname)) {
-    return (
-      <Router history={history}>
-        <Route path="/admin" component={AdminPage} />
-      </Router>
-    )
-  }
-
+  /* 
+    if (regex.test(window.location.pathname)) {
+      return (
+        <Router history={history}>
+          <Route path="/admin" component={AdminPage} />
+        </Router>
+      )
+    }
+   */
   return (
-    // <Provider store={store} >
     <Router history={history}>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -66,12 +67,19 @@ const App = () => {
             Web Stories
           </Link>
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
+            <li className="nav-item"
+              style={{
+                'marginTop': '20px',
+                'marginLeft': '80px'
+
+              }}>
               <Link to={"/home"} className="nav-link">
                 Home
               </Link>
             </li>
-
+            <li className="nav-item">
+              <SearchStory></SearchStory>
+            </li>
             {showAuthorBoard && (
               <li className="nav-item">
                 <Link to={"/author"} className="nav-link">
@@ -88,20 +96,13 @@ const App = () => {
               </li>
             )}
 
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
           </div>
 
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
+                  HaiVan
                 </Link>
               </li>
               <li className="nav-item">
@@ -123,6 +124,7 @@ const App = () => {
                     Sign Up
                 </Link>
                 </li>
+
               </div>
             )}
         </nav>
@@ -133,19 +135,23 @@ const App = () => {
             <Route exact path="/chapter/:id" component={ChapterDetail, Chapter} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/stories/:id" component={Story} />
-
-            <Route exact path="/stories/:storyId/chapters"
-              render={props => <GetChapterOfStory {...props.match.params} />} />
-
-
             <Route exact path="/stories/:id/:index" component={Chapter} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardAuthor} />
+            <Route exact path="/stories/:storyId/chapters" render={props =>
+              <AppPagination {...props.match.params} />} />
+            <Route exact path="/search/:keyword" component={SrotySearch} />
+            <Router history={history}>
+              <Route exact path="/stories/:storyId/chapters"
+                render={props => <GetChapterOfStory {...props.match.params} />} />
+            </Router>
+
           </Switch>
         </div>
+        {/*  <div><Footer></Footer></div> */}
       </div>
-      {/* <Footer></Footer> */}
+
     </Router>
     // </Provider>
 

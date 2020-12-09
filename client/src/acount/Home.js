@@ -3,10 +3,9 @@ import Chapter from "../pages/chapters/Chapter";
 import Category from "../pages/categories/Category";
 import StoryItem from "../pages/stories/StoryItem";
 import GetChapterOfStory from "../pages/stories/GetChapterOfStory";
-//import { storyAPI } from "../services";
-import SearchStory from "../components/Search/SearchStory"
 import UserService from "../services/user.service";
-import "../pages/stories/Story.css";
+import { Link } from "react-router-dom";
+import SearchStory from "../components/Search/SearchStory"
 const Home = () => {
   // const [content, setContent] = useState("");
   const [stories, setStories] = useState([]);
@@ -28,19 +27,17 @@ const Home = () => {
   console.log(stories);
   return (
     <div >
-      <body>
-        <div id="wrap">
+      <body >
+        <div id="wrap"  >
 
           <div className="title-list"
             style={{ "display": "flex" }}>
             <h2><a href="" title="Truyện hot">
               Truyện hot <span className="glyphicon glyphicon-fire"></span></a>
             </h2>
-            <Category />
-
+            {<Category style={{ 'fontSize': '13px' }} />}
 
           </div>
-
           <div className="index-intro" style={{ display: 'block' }} >
             <div className="item  story" >
               <a href="" >
@@ -48,72 +45,53 @@ const Home = () => {
                   class="img-responsive item-img" />
               </a>
             </div></div>
-
-
           {/*  {stories.map((c) => <Link to={`/stories/${c.id}`} key={c.id}>{c.name}</Link>)} */}
-          {stories.data && stories.data.map(story => <StoryItem key={story.id} {...story} />)}
-
+          {stories.data && stories.data.map(story => <StoryItem key={story.id} {...story}
+            style={{ "bottom": "1000px" }} />)}
           <div className="container" id="list-index">
             <div class="row text-center"></div>
             <div className="list list-truyen list-new list-new-col col-truyen-main" >
-              <div className="title-list">
-                <h2><a href="" >Truyện mới cập nhật</a></h2>
-                <a href="">
-                  <span className="glyphicon glyphicon-menu-right"></span>
-                </a><select id="new-select" className="form-control new-select" >
-                  <option value="all">Tất cả</option></select>
-              </div>
-              <div className="row" >
-                <div className="col-name  col-title">
-                  <h3 itemprop="name"><a href="" title="" >
-                    <span className="glyphicon glyphicon-chevron-right"></span>
-                Ten Truyen</a>
-                  </h3><span className="label-title label-hot">
-                  </span>
-                </div>
-                <div className="catalogy-name ">
-                  <a href="" title="Ngôn Tình">Ngôn Tình</a>
-                  <a href="" title="Trọng Sinh">Trọng Sinh</a>
-                </div>
-                <div className="chapter-name">
-                  <a href="truyen/chuong" title="">
-                    <span className="chapter-text"><span>Chương </span></span>167</a></div>
-                <div className="">8 phút trước </div>
+              <h2><a href="" >Truyện mới cập nhật</a></h2>
+              <div className="title-list"
+                style={{ "top": "150px" }}
+              >
+                {stories.data && stories.data.map(story =>
+                  <div class="row">
+
+                  </div>
+                )}
+
               </div>
 
-            </div>
-            <div className="text-center col-truyen-side"
-              style={{ "top": "510px" }}
-            >
-              <div className="list list-truyen list-history">
 
-                <div className="list list-truyen list-cat wrap">
-                  <div className="title-list">
-                    <h4>Thể loại truyện</h4>
-                  </div><div className="row">
-                    <div className="row-catalogy">
-                      <a href="the loai " title="Truyện Tiên Hiệp">Tiên Hiệp</a>
-                    </div><div className="row-catalogy">
-                      <a href="the loai" title="Truyện Kiếm Hiệp">Kiếm Hiệp</a>
-                    </div>
-                  </div></div>
-              </div>
-            </div>
-            <div >
 
-              <SearchStory />
+
+
             </div>
+
           </div>
-
         </div>
-
-
       </body>
 
-    </div>
+    </div >
 
   );
 };
 
 export default Home;
 //className="jumbotron"
+
+
+/*
+<div class="col-xs-9 col-sm-6 col-md-5 col-title"
+style={{ " color": "#4E4E4E" }}>
+<span class="glyphicon glyphicon-chevron-right">
+  <Link>{story.name}</Link>
+</span>     </div>
+<div class="hidden-xs col-sm-3 col-md-3 col-cat text-888">
+<a href="" ></a>
+</div>
+<div class="col-xs-3 col-sm-3 col-md-2 col-chap text-info">
+
+</div>
+<div class="hidden-xs hidden-sm col-md-2 col-time text-888">18 phút trước </div> */

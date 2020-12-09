@@ -2,6 +2,16 @@ import Chapter from './chapter.model'
 import Story from '../story/story.model'
 import { pagination } from '../../helpers/api'
 
+const index = async ({ querymen: { query, select, cursor } }, res) => {
+  console.log(query, select, cursor)
+  Chapter.find(query, select, cursor).populate({ path: 'storyId', select: ['name'] })
+    .then(async data => {
+      const total = await Chapter.countDocuments(query).exec()
+      res.status(200).json({ data, total })
+    })
+    .catch(err => res.status(400).json(err))
+}
+
 const create = async ({ body }, res) => {
   try {
     const { name, index, content, storyId } = body
@@ -25,19 +35,6 @@ const getById = async ({ params }, res) => {
   Chapter.findById(params.id)
     .then(chapter => res.status(200).json(chapter))
     .catch(err => res.status(400).json(err))
-}
-
-const index = async ({ query }, res) => {
-  try {
-    const filter = {}
-    const total = await Chapter.countDocuments(filter)
-    const data = Chapter.find(filter)
-    const chapters = await pagination(data, query)
-
-    res.status(200).json({ ...chapters, total })
-  } catch (err) {
-    res.status(400).json(err)
-  }
 }
 
 const update = async ({ params, body }, res) => {

@@ -1,15 +1,12 @@
 import React from "react";
-
-import ResultSearch from "./ResultSearch";
 import classes from "./Stories.module.css";
-
-const SrotySearch = ({ list }) => {
+import StoryItem from "../../pages/stories/StoryItem"
+const SrotySearch = ({ stories }) => {
     let cards = <h3>Loading...</h3>;
-
-    if (list) {
-        cards = list.map((m, i) => <ResultSearch key={i} item={m} />);
+    console.log(stories);
+    if (stories) {
+        cards = stories.map(story => <StoryItem key={story.id} {...story} style={{ "bottom": "1000px" }} />);
     }
-
     return (
         <div className={classes.Container}>
             <div className={classes.ContainerInner}>{cards}</div>

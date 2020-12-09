@@ -2,8 +2,12 @@
 import React, { useEffect, useState } from "react";
 import * as StoryAPI from "../../services/stories";
 import "./Story.css";
-
+//import ItemChapter from "./ItemChapter"
 import GetChapterOfStory from "./GetChapterOfStory"
+//import Chapter from "../chapters/Chapter";
+import { Link } from "react-router-dom";
+import AppPagination from "../../components/Pagination/AppPagination";
+import UserComment from "../comments/UserComment";
 
 //import Flag from 'react-flags';
 const Story = ({ match, location }) => {
@@ -33,7 +37,6 @@ const Story = ({ match, location }) => {
         .finally(() => setIsLoading({ ...isLoading, chapter: false }))
     }, [location.search]) */
 
-  console.log(story && story);
   return (
     <div>
       {
@@ -43,14 +46,18 @@ const Story = ({ match, location }) => {
             <div>
               <div className="col-xs-12 col-info-desc">
                 <div className="title-list book-intro"><h2>Thông tin truyện
-                <h3 className="title" itemprop="name">{story.name} </h3>
+                <h3 className="title" >{story.name} </h3>
                 </h2>
                 </div>
 
                 <div style={{ "display": "flex" }}>
                   <div className="imgstory info-holder">
                     <div className="book" style={{ "top": "20px" }} >
-                      <img src="https://static.8cache.com/cover/eJzLyTDW9_FJz4kMC_I1LarKSa4KDTJ3TzZOtsgwLQ02CyitMs11T_FLDS8tDIhIdDIMCUkvNjY3MTXOz0k3KiooT_Z0Ks7O0K0qyAjyKMvSLYp0SncODci2LTcyNNXNMDYyAgBIQyAx/xuyen-thanh-qua-tim-nho-cua-nam-phu.jpg" alt={story.name}
+                      <img src={story && story.description} alt={story.name}
+                        style={{
+                          "width": '220px',
+                          "height": "330px"
+                        }}
                       />
                     </div>
                     <div className="info">
@@ -61,46 +68,55 @@ const Story = ({ match, location }) => {
                         <h3>Thể loại: <a href="" >{story && story.categories && story.categories.title} </a></h3>
                       </div>
                       <div>
-                        <h3>Trạng thái: <span class="text-primary">Đang ra</span> </h3>
+                        <h3>Trạng thái: <span class="text-primary">{story && story.status}</span> </h3>
                       </div>
                     </div>
                   </div>
                   <div className="infor-story" style={{
+                    'top': '200px',
                     "justifyContent": "space-between",
                     "width": "500px",
                     "height": "50px",
                     "marginRight": "0px"
                   }}>
-                    <div className="desc-text desc-text-full"  >
-                      <p>Truyện Vũ Luyện Điên Phong là một tác phẩm truyện thuộc thể loại Đông phương
-                    <a target="_blank" href="https://truyenfull.vn/the-loai/huyen-huyen/">huyền huyễn</a>
-                     của tác giả <a target="_blank" href="https://truyenfull.vn/tac-gia/mac-mac/">Mạc Mặc</a>
+                    <div className="desc-text desc-text-full" style={{ 'fontSize': '13px' }}  >
+                      <br>
+                      </br>
+                      <br>
+                      </br>
+                      <p>Truyện THẦN ĐẠO ĐAN TÔN là một tác phẩm truyện thuộc thể loại Đông phương
+                    <a target="_blank" href="">huyền huyễn</a>
+                     của tác giả <a target="_blank" href="">Mạc Mặc</a>
                       nổi tiếng. Nội dung câu chuyện trong Vũ Luyện Điên Phong xoay quanh Dương Khai - một đệ tử thí luyện của Lăng Tiêu Các. Khởi đầu, Dương Khai chỉ là một gã quét rác, sai vặt ... vì vô tình mặt được một cuốn Hắc thư thần bí, từ đó chàng bước vào con đường võ đạo dài đằng đẵng nhưng cũng lắm gian truân trắc trở và đau thương...”</p>
                       <p>Vì sao mà một tên quét rác lại có thể thành anh hùng trứ danh thiên hạ, vì sao mà một tên hàu sai vặt lại chiếm được những mỹ nữ sắc nước hương trời trong thiên hạ ?&nbsp;Trong thế giới của Vũ Luyện Điên Phong, đỉnh cao nhất của võ đạo, chính là cô độc, là tịch mịch, là đằng đẵng miệt mài, cao xứ bất thắng hàn.</p>
                       <p>Sống trong nghịch cảnh, phát triển trong tuyệt địa, bất khuất không bỏ cuộc, mới có thể phá vỡ được cực đạo của võ thuật. Có thể nói dưới bút văn giản dị nhưng vô cùng súc tích đầy hình ảnh của tác giả Mạc Mặc, những trận quyết đấu máu lửa trong Vũ Luyện Điên Phong như diễn ra hết sức sống động trước mắt độc giả...</p>
                     </div>
                   </div>
-                </div>
 
+                  <div className="title-list">
+
+                  </div>
+                  {/*   <GetChapterOfStory storyId={story && story && story.id} > </GetChapterOfStory> */}
+
+                </div>
+                <div className="title-list" style={{
+                  "marginBottom": "15px",
+                  "marginTop": "50px"
+                }} ><h2>Danh sach chuong</h2></div>
+                <AppPagination storyId={story && story && story.id} />
+                <div className="title-list" style={{
+                  "marginBottom": "15px",
+                  "marginTop": "50px"
+                }} ><h2>Bình luận truyện</h2></div>
+                <div>
+                  <UserComment></UserComment>
+                </div>
               </div>
 
             </div>
           )
       }
-      <div id="list-chapter">
-        <div className="title-list">
-          <h2>Danh sách chương</h2>
-          <div className="row">
-            <div className="col-xs-12 col-sm-6 col-md-6">
-              <ul className="list-chapter">
-                <h1></h1>
-                <GetChapterOfStory storyId={story && story && story.id} > </GetChapterOfStory>
 
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
   );

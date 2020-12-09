@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
 
-const authorSchema = mongoose.Schema({
+const AuthorSchema = mongoose.Schema({
   fullName: { type: String, require: true },
 }, {
   timestamps: true,
@@ -9,9 +10,11 @@ const authorSchema = mongoose.Schema({
     virtuals: true,
     transform: (obj, ret) => {
       delete ret['_id']
+      delete ret.keywords
     }
   }
 })
 
-const model = mongoose.model('Author', authorSchema)
-export default model
+AuthorSchema.plugin(mongooseKeywords, { paths: ['fullName'] })
+const Author = mongoose.model('Author', AuthorSchema)
+export default Author
