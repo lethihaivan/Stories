@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./Stories.module.css";
 import StoryItem from "../../pages/stories/StoryItem"
-const SrotySearch = ({ stories }) => {
+const SrotySearch = ({ stories, props }) => {
     let cards = <h3>Loading...</h3>;
-    console.log(stories);
+    console.log(props);
+
     if (stories) {
         cards = stories.map(story => <StoryItem key={story.id} {...story} style={{ "bottom": "1000px" }} />);
     }

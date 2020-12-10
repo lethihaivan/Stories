@@ -25,11 +25,16 @@ class SearchStory extends Component {
     };
     onChangeHandler = async e => {
         this.search(e.target.value);
-        this.setState({ value: e.target.value });
+        this.setState({
+            value: e.target.value,
+            stories: e.target.stories
+
+        });
+        console.log(e);
         // this.props.history.push(`/search/${e.target.value}`);
     };
     render() {
-        console.log(this.state.stories);
+        console.log(this.state.stories && this.state.stories.data);
         return (
             <div >
                 <input style={{
@@ -47,7 +52,7 @@ class SearchStory extends Component {
                 {this.state.value.length > 0 &&
                     <Redirect to={{
                         pathname: `/search/${this.state.value}`,
-                        state: { stories: this.state.stories }
+                        state: { stories: this.state.stories && this.state.stories.data }
                     }} />
                 }
             </div>

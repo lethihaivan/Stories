@@ -9,6 +9,7 @@ const StorySchema = mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String, default: '' },
     image: { type: String, },
+    isLiked: { type: Boolean, default: false },
     createdBy: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
     // rating: { type: Number, default: 0 },
     status: { type: String, enum: status, default: 'unfulfilled' },

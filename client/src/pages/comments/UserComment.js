@@ -25,10 +25,12 @@ class UserComment extends Component {
                     comments: res,
                     loading: false
                 });
+                console.log(res);
             })
             .catch(err => {
                 this.setState({ loading: false });
             });
+
     }
 
     /**

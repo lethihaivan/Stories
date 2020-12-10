@@ -6,14 +6,16 @@ import "./App.css";
 import ChapterDetail from "./pages/chapters/ChapterDetail";
 import Story from "./pages/stories/Story";
 import GetChapterOfStory from "./pages/stories/GetChapterOfStory";
+import DelStory from "./pages/stories/DelStory";
 import Chapter from "./pages/chapters/Chapter";
 import Login from "./acount/Login";
 import Register from "./acount/Register";
 import Home from "./acount/Home";
 import Profile from "./acount/Profile";
 import BoardUser from "./acount/BoardUser";
+import MyLibrary from "./acount/MyLibrary";
 import BoardAuthor from "./acount/BoardAuthor";
-import BoardAdmin from "./acount/BoardAdmin";
+import EditProfile from "./acount/EditProfile";
 import Footer from "./acount/Footer"
 import AppPagination from "./components/Pagination/AppPagination"
 import SearchStory from "./components/Search/SearchStory"
@@ -138,9 +140,13 @@ const App = () => {
             <Route exact path="/stories/:id/:index" component={Chapter} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
+            <Route path="/library" component={MyLibrary} />
             <Route path="/mod" component={BoardAuthor} />
+            <Route exact path="/stories/remove/:id" component={DelStory} />
+            <Route path="/users" component={EditProfile}></Route>
             <Route exact path="/stories/:storyId/chapters" render={props =>
               <AppPagination {...props.match.params} />} />
+
             <Route exact path="/search/:keyword" component={SrotySearch} />
             <Router history={history}>
               <Route exact path="/stories/:storyId/chapters"

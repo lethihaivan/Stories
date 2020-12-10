@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react"
 import "../styles/Profile.css"
@@ -12,7 +12,6 @@ const Profile = () => {
 
   const [usern, setUser] = useState([]);
   useEffect(() => {
-    //getMe().then(res => console.log(res, 'userInfo'))
     getMe().then(response => {
       const usern = response;
       setUser(usern);
@@ -21,12 +20,9 @@ const Profile = () => {
       console.log(error, 'error')
     });
   }, []);
-  console.log(usern);
-  //console.log(isLoggedIn); 
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
-  /*   console.log(usern.id); */
   return (
     <body>
       <div class="container main-secction">
@@ -38,14 +34,19 @@ const Profile = () => {
             <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
               <div class="row ">
                 <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-                  <img src="https://randomuser.me/api/portraits/women/79.jpg" class="rounded-circle" />
+                  <img src={usern.avatarUrl} class="rounded-circle" />
                 </div>
                 <div class="" >
                   <button class="btn btn-success btn-block follow"
-                    style={{ 'fontSize': '18px', 'width': '200%', 'marginTop': '20px' }}>My Library</button>
+                    style={{ 'fontSize': '18px', 'width': '200%', 'marginTop': '20px' }}>
+                    <Link to={"/library"} >
+                      My Library
+                      </Link></button>
                   <button class="btn btn-warning btn-block"
                     style={{ 'fontSize': '18px', 'width': '200%', 'marginTop': '20px' }}
-                  >Edit Profile</button>
+                  >     <Link to={"/users"} >
+                      Edit Profile
+                      </Link></button>
                 </div>
 
               </div>
@@ -74,7 +75,7 @@ const Profile = () => {
                         </li>
                       </ul>
                       <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade show active" id="profile">
+                        <div role="tabpanel" class="tab-pane fade show active" >
                           <div class="row" style={{
                             'fontSize': '18px', 'marginTop': '20px',
                             'marginLeft': '-500px',

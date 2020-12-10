@@ -20,7 +20,8 @@ const create = async (req, res) => {
 }
 
 const index = async (req, res) => {
-  Comment.find({ commentParent: null, }).populate(populate)
+  Comment.find({ commentParent: null, })
+    .populate(populate)
     // .then(comments => comments.populate())
     .then(comments => {
       // console.log(comments)

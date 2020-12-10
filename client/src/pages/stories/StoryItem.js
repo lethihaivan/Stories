@@ -17,10 +17,6 @@ const StoryItem = ({ id, description, name, category }) => {
                     </div>
                 </a>
             </div>
-
-
-
-
         </div>
 
 
