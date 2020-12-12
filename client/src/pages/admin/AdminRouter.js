@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+
 import ChapterRouter from "./chapter/ChapterRoute"
+import StoryRoute from "./story/StoryRoute"
 import { Header, HeaderSignOut, PrivateRoute } from './components'
 
 import '../../styles/AdminPage.css'
 
 const AdminPage = ({ match, history }) => {
-  console.log("match", match)
-  console.log("history", history)
   return (
     <div className="dasboard-style">
       <Header history={history} />
@@ -14,14 +14,7 @@ const AdminPage = ({ match, history }) => {
         <HeaderSignOut history={history} />
         <div className="main-style">
           <PrivateRoute path={`${match.path}/chapters`} component={ChapterRouter} />
-          {/* <PrivateRoute path={`${match.path}/users`} component={UsersPage} />
-          <PrivateRoute path={`${match.path}/places`} component={PlacesPage} />
-          <PrivateRoute path={`${match.path}/requests`} component={RequestsPage} />
-          <PrivateRoute path={`${match.path}/reports`} component={ReportsPage} />
-          <PrivateRoute path={`${match.path}/restaurants`} component={RestaurantsRoute} />
-          <PrivateRoute path={`${match.path}/transportations`} component={TransportationsRoute} />
-          <PrivateRoute path={`${match.path}/attractions`} component={AttractionsRoute} />
-          <PrivateRoute path={`${match.path}/hotels`} component={HotelsRoute} /> */}
+          <PrivateRoute path={`${match.path}/stories`} component={StoryRoute} />
         </div>
       </div>
     </div>

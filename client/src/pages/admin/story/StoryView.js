@@ -10,11 +10,16 @@ import '../../../styles/LabelStyle.css'
 import '../../../styles/ChapterPage.css'
 
 import { TableWithLoading } from '../components'
-import { list } from '../../../services/ChapterAPI';
+import { getAll } from '../../../services/storyAPI';
 
-function ChapterView(props) {
+const statusStory = {
+  'unfulfilled': 'Đang ra',
+  'fullfil': 'Đã xong'
+}
+
+function StoryView(props) {
   const columns = [{
-    name: 'Tên chương',
+    name: 'Tên truyện',
     selector: 'name',
     sortable: true,
     width: '200px',
@@ -22,42 +27,56 @@ function ChapterView(props) {
     hide: 'sm'
   },
   {
-    name: 'Chương',
-    selector: 'index',
+    name: 'Trạng thái',
+    selector: 'status',
     sortable: true,
     width: '200px',
-    wrap: true
+    wrap: true,
+    cell: (row) => {
+      return (
+        <span>
+          {statusStory[row.status]}
+        </span>
+      )
+    }
   },
   {
-    name: 'Tên truyện',
-    selector: 'storyId.name',
+    name: 'Tác giả',
+    selector: 'author.fullName',
     sortable: true,
     width: '180px',
     center: true,
     wrap: true
   },
   {
-    name: "",
-    width: 170,
-    cell: (row) => {
-      return (
-        <Link to={`/admin/chapters/edit/${row.id}`}>
-          <Button variant="success" className="btn-padding-9 btn-add-tablet">
-            Chi tiết          </Button>
-        </Link>
-      )
-    }
+    name: 'Người tạo',
+    selector: 'createdBy.fullName',
+    sortable: true,
+    width: '180px',
+    center: true,
+    wrap: true
   },
+    // {
+    //   name: "",
+    //   width: 170,
+    //   cell: (row) => {
+    //     return (
+    //       <Link to={`/admin/chapters/edit/${row.id}`}>
+    //         <Button variant="success" className="btn-padding-9 btn-add-tablet">
+    //           Chi tiết          </Button>
+    //       </Link>
+    //     )
+    //   }
+    // },
   ]
+  const [maxLengthData, setMaxLengthData] = useState(100);
   const [textSearchValue, setTextSearchValue] = useState('');
   const [modalShow, setModalShow] = useState(false);
   const [currentRow, setCurrentRow] = useState({});
-
-  const [maxLengthData, setMaxLengthData] = useState(100);
   const params = queryString.parse(props.location.search);
   const paginationRowsPerPageOptions = [5, 10, 20];
 
-  const [chapters, setChapter] = useState([])
+  const [stories, setStories] = useState([])
   const [isLoading, setLoading] = useState(false);
 
   if (!params.page) {
@@ -69,9 +88,9 @@ function ChapterView(props) {
 
   useEffect(() => {
     setLoading(true)
-    list(params)
+    getAll(params)
       .then(res => {
-        setChapter(res.data)
+        setStories(res.data)
         setMaxLengthData(res.total)
       })
       .finally(() => setLoading(false))
@@ -80,10 +99,12 @@ function ChapterView(props) {
   const _destroy = () => {
     setModalShow(false);
   };
+
   const destroy = row => {
     setCurrentRow(row);
     setModalShow(true);
   };
+
   const onSearchSubmit = e => {
     e.preventDefault();
     // searchService(8, 1, textSearchValue)
@@ -100,26 +121,12 @@ function ChapterView(props) {
 
   return (
     <div >
-      <h1>Quản lý chương</h1>
+      <h1>Quản lý truyện</h1>
       <Navbar className="justify-content-between">
-        {/* <div>
-          <Form inline onSubmit={onSearchSubmit}>
-            <FormControl
-              type="text"
-              placeholder="Search"
-              onChange={onSearchChange}
-              className="mr-sm-2"
-              value={textSearchValue}
-            />
-            <Button variant="info" type="submit" className="btn btn-padding-7">
-              <FaSearch className="FaSearch" />
-            </Button>
-          </Form>
-        </div> */}
         <div>
-          <Link to="/admin/chapters/new">
+          <Link to="/admin/stories/new">
             <Button variant="success" className="btn-padding-9 btn-add-tablet">
-              Thêm Chuơng <IoIosAddCircle />
+              Thêm Truyện <IoIosAddCircle />
             </Button>
           </Link>
         </div>
@@ -129,7 +136,7 @@ function ChapterView(props) {
         className="style-table-customer"
         isLoading={isLoading}
         columns={columns}
-        data={chapters}
+        data={stories}
 
         noDataComponent='Không có dữ liệu'
         persistTableHead={true}
@@ -156,11 +163,9 @@ function ChapterView(props) {
         }}
         paginationRowsPerPageOptions={paginationRowsPerPageOptions}
 
-
       />
     </div>
   );
 }
 
-
-export default ChapterView;
+export default StoryView

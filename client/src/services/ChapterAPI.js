@@ -1,9 +1,10 @@
 import axios from '../axios'
+import { listUserByRole } from '../helpers/api'
 
 const path = '/chapters'
 
 // const getById = (id) => axios.get(url)
-export const list = () => axios.get(path).then((res) => res.data)
+export const list = (params) => axios.get(listUserByRole(path, params)).then((res) => res.data)
 
 export const getById = (id) => axios.get(`${path}/${id}`).then((res) => res.data)
 

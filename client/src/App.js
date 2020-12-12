@@ -26,7 +26,7 @@ import { history } from "./helpers/history";
 
 import AdminPage from "./pages/admin/AdminRouter";
 
-//const regex = new RegExp(/\/admin/)
+const regex = new RegExp(/\/admin/)
 const App = () => {
   const [showAuthorBoard, setShowAuthorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -52,15 +52,15 @@ const App = () => {
   const logOut = () => {
     dispatch(logout());
   };
-  /* 
-    if (regex.test(window.location.pathname)) {
-      return (
-        <Router history={history}>
-          <Route path="/admin" component={AdminPage} />
-        </Router>
-      )
-    }
-   */
+
+  if (regex.test(window.location.pathname)) {
+    return (
+      <Router history={history}>
+        <Route path="/admin" component={AdminPage} />
+      </Router>
+    )
+  }
+
   return (
     <Router history={history}>
       <div>
