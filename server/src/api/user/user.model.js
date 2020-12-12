@@ -1,11 +1,16 @@
 import mongoose from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
+
+import { MAX_PASSWORD, MIN_PASSWORD } from '../../constants'
 
 const roles = ['user', 'admin']
 const userSchema = mongoose.Schema({
   username: { type: String, require: true, trim: true, unique: true, lowercase: true, },
   fullName: { type: String, require: true },
-  password: { type: String, require: true, minLength: 6, maxLength: 100 },
-  role: { type: String, enum: roles, default: 'user' }
+  password: { type: String, require: true, minLength: MIN_PASSWORD, maxLength: MAX_PASSWORD },
+  role: { type: String, enum: roles, default: 'user' },
+  avatarUrl: { type: String, default: '' },
+  favoriteStories: [{ type: mongoose.Schema.ObjectId, ref: 'Story' }]
 }, {
   timestamps: true,
   versionKey: false,
@@ -18,10 +23,18 @@ const userSchema = mongoose.Schema({
   }
 })
 
-userSchema.pre('save', function (next) {
-  console.log(123123)
-  next()
-})
+// userSchema.pre('save', function (next) {
+//   console.log(123123)
+//   next()
+// })
+userSchema.methods.userPopulate = async () => {
+  return await this.populate('favoriteStories').execPopulate()
+}
+
 userSchema.static = { roles }
+
+userSchema.plugin(mongooseKeywords, { paths: ['fullName', 'username'] })
+// UserSchema.plugin(mongooseKeywords, { paths: ['fullName', 'username'] })
+
 const model = mongoose.model('User', userSchema)
 export default model

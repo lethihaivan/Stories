@@ -1,11 +1,17 @@
 
-const populate = [{ path: 'author' }, {
-  path: 'commentChildren',
-  select: ['author', 'content'],
-  populate: {
+export const populate = [
+  {
     path: 'author',
+    select: ['fullName', 'avatarUrl']
+  },
+  {
+    path: 'commentChildren',
+    select: ['author', 'content'],
+    populate: {
+      path: 'author',
+    }
+  },
+  {
+    path: 'story',
   }
-}]
-// const status = ['unfulfilled', 'full']
-
-module.exports = { populate }
+]

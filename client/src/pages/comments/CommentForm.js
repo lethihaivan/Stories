@@ -1,19 +1,20 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { postComments } from "../../services/auth-header";
+import StoryAPI from "../../services/storyAPI"
 export default class CommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
       error: "",
-
       comment: {
-        name: "",
-        message: ""
+        storyId: props.storyId,  //name
+        content: ""                //mesage
       }
+
     };
 
-
+    console.log(props);
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -24,14 +25,13 @@ export default class CommentForm extends Component {
 
     this.setState({
       ...this.state,
+      story: [],
       comment: {
         ...this.state.comment,
         [name]: value
       }
     });
   };
-
-
   onSubmit(e) {
 
     e.preventDefault();
@@ -41,25 +41,31 @@ export default class CommentForm extends Component {
       return;
     }
 
-
     this.setState({ error: "", loading: true });
 
-
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
     let { comment } = this.state;
-    axios.post("http://localhost:9091/api/comments", { comment })
+    postComments({
+      comment, headers: {
+        "Accept": "application/json",
+        "Content-type": "application/json",
+        "Authorization": "Bearer " + user.token
+      }
+    })
       .then(res => {
         if (res.error) {
           this.setState({ loading: false, error: res.error });
         } else {
 
-          comment.time = res.time;
           this.props.addComment(comment);
 
 
           this.setState({
             loading: false,
-            comment: { ...comment, message: "" }
+            comment: { ...comment, content: "" }
           });
+
         }
       })
       .catch(err => {
@@ -71,7 +77,7 @@ export default class CommentForm extends Component {
   }
 
   isFormValid() {
-    return this.state.comment.name !== "" && this.state.comment.message !== "";
+    return this.state.comment.content !== ""; //this.state.comment.name !== "" &&
   }
 
   renderError() {
@@ -80,27 +86,17 @@ export default class CommentForm extends Component {
     ) : null;
   }
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <form method="post" onSubmit={this.onSubmit}>
           <div className="form-group">
-            <input
-              onChange={this.handleFieldChange}
-              value={this.state.comment.name}
-              className="form-control"
-              placeholder="😎 Your Name"
-              name="name"
-              type="text"
-            />
-          </div>
-
-          <div className="form-group">
             <textarea
               onChange={this.handleFieldChange}
-              value={this.state.comment.message}
+              value={this.state.comment.content}
               className="form-control"
               placeholder="🤬 Your Comment"
-              name="message"
+              name="content"
               rows="5"
             />
           </div>

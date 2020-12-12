@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import * as StoryAPI from "../../services/stories";
-//import * as ChapterAPI from "../../services/ChapterAPI";
 import './Chapter.css';
-
 const Chapter = ({ match }) => {
-    let history = useHistory();
-
-    function handleChange(value) {
-        history.push(`/?location=${value}`);
-    }
     const [story, setStories] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
     useEffect(() => {
         setIsLoading(true);
         StoryAPI.getById(match.params.id).then(res => {
             const story = res;
             setStories(story);
             setIsLoading(false);
-
         });
     }, []);
-    console.log(story && story.chapters)
+    console.log(match)
     return (
         <div id="wrap">
             <div id="space-between" className="container chapter">
@@ -115,8 +106,7 @@ const Chapter = ({ match }) => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
+                            </div>)
                     }
                 })}
             </div>

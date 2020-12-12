@@ -139,7 +139,7 @@ export default class AppPagination extends Component {
             pageOfItems: []
         };
 
-        console.log(this.state)
+        console.log(props)
         this.onChangePage = this.onChangePage.bind(this);
 
     }

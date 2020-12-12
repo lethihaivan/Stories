@@ -60,6 +60,7 @@ function ChapterView(props) {
     setLoading(true)
     list()
       .then(res => setChapter(res.data))
+      .catch(err => console.log(err))
       .finally(() => setLoading(false))
   }, [])
   const _destroy = () => {

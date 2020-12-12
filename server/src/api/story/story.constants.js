@@ -2,18 +2,21 @@
 const populate = [
   {
     path: 'categories',
+    select: ['title']
   },
   {
     path: 'comments',
     populate: [,
       {
-        path: 'author'
+        path: 'author',
+        select: ['fullName', 'avatarUrl']
       },
       {
         path: 'commentChildren',
         select: ['author', 'content'],
         populate: {
           path: 'author',
+          select: ['fullName', 'avatarUrl']
         }
       }]
   },

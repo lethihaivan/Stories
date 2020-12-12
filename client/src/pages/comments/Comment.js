@@ -1,22 +1,32 @@
 import React from "react";
 
 export default function Comment(props) {
-    const { name, message, time } = props.comment;
+    const { name, content, updatedAt } = props.comment;
 
+    const curTime = new Date().toLocaleString();
+    console.log(props.comment.author);
     return (
-        <div className="media mb-3">
+        <div className="media mb-3"
+            style={{
+                "fontSize": "15px",
+                "textAlign": "left"
+            }}>
             <img
-                className="mr-3 bg-light rounded"
+                className="rounded-circle"
                 width="48"
                 height="48"
-                src={`https://api.adorable.io/avatars/48/${name.toLowerCase()}@adorable.io.png`}
-                alt={name}
+                src={props.comment.author.avatarUrl}
             />
+            <div className="media-body p-2 shadow-sm rounded bg-light border"
+            >
+                <small className="float-right text-muted"> {updatedAt.toLocaleString()}</small>
+                <h3 className="mt-0 mb-1 text-muted"
+                    style={{
+                        "fontFamily": "'Times New Roman', serif",
+                        "fontWeight": "bold"
 
-            <div className="media-body p-2 shadow-sm rounded bg-light border">
-                <small className="float-right text-muted">{time}</small>
-                <h6 className="mt-0 mb-1 text-muted">{name}</h6>
-                {message}
+                    }}>{props.comment.author.fullName}</h3>
+                {content}
             </div>
         </div>
     );
