@@ -22,11 +22,9 @@ const getAdminBoard = () => {
 };
 
 
-const updateUser = (user) => {
-    return axios.put(API_URL + '/users');
-}
+
 export default {
-    updateUser,
+
     getInFor,
     getPublicContent,
     getUserBoard,

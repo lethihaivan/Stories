@@ -1,7 +1,6 @@
 import Story from './story.model'
 import Chapter from '../chapter/chapter.model'
 import { populate } from './story.constants'
-import { pagination } from '../../helpers/api'
 
 const create = async ({ body, file }, res) => {
   const { name, description, status, categories, author, createdBy, chapters, image } = { ...body }

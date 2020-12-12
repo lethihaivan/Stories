@@ -74,6 +74,7 @@ function ChapterView(props) {
         setChapter(res.data)
         setMaxLengthData(res.total)
       })
+      .catch(err => console.log(err))
       .finally(() => setLoading(false))
   }, [props.location.search])
 

@@ -1,11 +1,18 @@
 import { Router } from 'express'
 
-const commentController = require('./comment.controller')
-const router =  Router()
+import { index, create, remove, removeAll, getById } from './comment.controller'
+import { authenticate } from '../../middleware/authenticate'
 
-router.get('/', commentController.index)
-router.post('/', commentController.create)
-router.delete('/', commentController.removeAll)
-router.delete('/:id', commentController.remove)
+const router = new Router()
+
+router.get('/', index)
+
+router.get('/:id', authenticate(), getById)
+
+router.post('/', authenticate(), create)
+
+router.delete('/', authenticate(['admin']), removeAll)
+
+router.delete('/:id', authenticate(), remove)
 
 export default router

@@ -19,7 +19,6 @@ const index = async (req, res) => {
 const updateInfo = async ({ params, body }, res) => {
   const { id } = params
   const { fullName } = body
-  // console.log(id, fullName)
   Author.findByIdAndUpdate(id, { fullName }, { new: true, useFindAndModify: false })
     .then(author => res.status(200).json(author))
     .catch(err => res.status(404).json(err))
@@ -27,7 +26,6 @@ const updateInfo = async ({ params, body }, res) => {
 
 const storiesOfAuthor = async ({ querymen: { query, select, cursor }, params }, res) => {
   query.author = params.id
-  console.log(query, select, cursor, params)
   Story.find(query, select, cursor).populate(populate)
     .then(async data => {
       const total = await Story.countDocuments(query).exec()

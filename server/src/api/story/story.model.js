@@ -9,7 +9,6 @@ const StorySchema = mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String, default: '' },
     image: { type: String, },
-    isLiked: { type: Boolean, default: false },
     createdBy: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
     // rating: { type: Number, default: 0 },
     status: { type: String, enum: status, default: 'unfulfilled' },
@@ -25,7 +24,7 @@ const StorySchema = mongoose.Schema(
       virtuals: true,
       transform: (obj, ret) => {
         delete ret._id
-        // delete ret.keywords
+        delete ret.keywords
       }
     }
   }
@@ -34,7 +33,7 @@ const StorySchema = mongoose.Schema(
 StorySchema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
-  foreignField: 'storyId',
+  foreignField: 'story',
   options: {
     sort: { updatedAt: -1 }
   }

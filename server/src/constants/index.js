@@ -1,6 +1,6 @@
 
 export const MIN_PASSWORD = 6
-export const MAX_PASSWORD = 30
+export const MAX_PASSWORD = 100
 export const TIME = {
   HOUR: 60 * 60,
   ONE_DAY: 60 * 60 * 24,

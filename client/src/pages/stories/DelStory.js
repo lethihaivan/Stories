@@ -10,8 +10,6 @@ const DelStory = ({ match, location }) => {
     const storyId = match.params.id
     const [story, setStories] = useState([]);
     const [isLoading, setIsLoading] = useState({ story: false, chapter: false });
-
-
     useEffect(() => {
         setIsLoading({ ...isLoading, story: true });
         StoryAPI.getById(storyId).then(res => {

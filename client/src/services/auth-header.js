@@ -14,3 +14,8 @@ export default function authHeader() {
 }
 
 export const getMe = () => axios.get('/auth/me').then(res => res.data)
+export const getComments = () => axios.get('/comments').then(res => res.data)
+export const postComments = () => axios.get('/comments').then(res => res.data)
+export const updateUser = (user) => {
+    return axios.put('/users');
+}

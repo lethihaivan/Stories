@@ -109,7 +109,7 @@ const Story = ({ match, location }) => {
                   "marginTop": "50px"
                 }} ><h2>Bình luận truyện</h2></div>
                 <div>
-                  <UserComment></UserComment>
+                  <UserComment storyId={story && story && story.id}></UserComment>
                 </div>
               </div>
 

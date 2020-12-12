@@ -2,24 +2,27 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
-import axios from "axios";
+import "./Comment.css";
+
+import { getComments } from "../../services/auth-header";
 class UserComment extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             comments: [],
-            loading: false
+            loading: false,
+            storyId: props.storyId,
         };
 
         this.addComment = this.addComment.bind(this);
+        console.log(props.storyId);
     }
 
     componentDidMount() {
-        // loading
         this.setState({ loading: true });
 
-        axios.get("http://localhost:9091/api/comments")
+        getComments("http://localhost:9091/api/comments")
             .then(res => {
                 this.setState({
                     comments: res,
@@ -40,22 +43,18 @@ class UserComment extends Component {
     addComment(comment) {
         this.setState({
             loading: false,
-            comments: [comment, ...this.state.comments]
+            comments: [comment, ...this.state.comments, this.state.storyId]
         });
     }
-
     render() {
-
         return (
             <div className="App container bg-light shadow" style={{
                 "marginBottom": "100px",
             }}>
-
-
                 <div className="row">
                     <div className="col-4  pt-3 border-right">
                         <h6>Comment about story</h6>
-                        <CommentForm addComment={this.addComment} />
+                        <CommentForm addComment={this.addComment} storyId={this.state.storyId} />
                     </div>
                     <div className="col-8  pt-3 bg-white">
                         <CommentList

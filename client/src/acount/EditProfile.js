@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import UserService from "../services/user.service";
-
+import updateUser from "../services/auth.service";
+import axios from "axios"
 class EditProfile extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             //  id: this.props.match.params.id,
             username: '',
@@ -16,28 +15,39 @@ class EditProfile extends Component {
         this.changeRolelHandler = this.changeRolelHandler.bind(this);
         this.updateUser = this.updateUser.bind(this);
     }
-
-    componentDidMount() {
-        UserService.updateUser(this.state.id).then((res) => {
+    componentDidMount = () => {
+        const usera = JSON.parse(localStorage.getItem('user'));
+        axios.put("http://localhost:9091/api/users", {
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + usera.token
+            }
+        }).then(res => {
             let user = res.data;
             this.setState({
                 username: user.username,
                 fullName: user.fullName,
                 role: user.role
             });
-        });
+        })
     }
-
     updateUser = (e) => {
         e.preventDefault();
+        const usera = JSON.parse(localStorage.getItem('user'));
         let user = { username: this.state.username, fullName: this.state.fullName, role: this.state.role };
         console.log('users => ' + JSON.stringify(user));
-        UserService.updateUser(user).then(res => {
+        axios.put("http://localhost:9091/api/users", {
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json",
+                "Authorization": "Bearer " + usera.token
+            }
+        }).then(res => {
             console.log(res);
             this.props.history.push('/profile');
         });
     }
-
     changeUserNameHandler = (event) => {
         this.setState({ username: event.target.value });
     }
@@ -49,11 +59,9 @@ class EditProfile extends Component {
     changeRolelHandler = (event) => {
         this.setState({ role: event.target.value });
     }
-
     cancel() {
         this.props.history.push('/profile');
     }
-
     render() {
         return (
             <div>
@@ -65,30 +73,23 @@ class EditProfile extends Component {
                             <div className="card-body">
                                 <form>
                                     <div className="form-group">
-                                        <label> User Name: </label>
-                                        <input placeholder="User Name" name="userName" className="form-control"
-                                            value={this.state.username} onChange={this.changeUserNameHandler} />
-                                    </div>
-                                    <div className="form-group">
                                         <label> Full Name: </label>
                                         <input placeholder="Full Name" name="fullName" className="form-control"
                                             value={this.state.fullName} onChange={this.changeFullNameHandler} />
                                     </div>
                                     <div className="form-group">
-                                        <label> Role: </label>
-                                        <input placeholder="Role" name="role" className="form-control"
-                                            value={this.state.role} onChange={this.changeRolelHandler} />
+                                        <label> Url Image: </label>
+                                        <input placeholder="Url Image" name="image" className="form-control"
+                                            value={this.state.username} onChange={this.changeUserNameHandler} />
                                     </div>
-
                                     <button className="btn btn-success" onClick={this.updateUser}>Save</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
+            </div >
         )
     }
 }
