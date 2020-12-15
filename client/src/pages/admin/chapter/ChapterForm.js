@@ -3,10 +3,10 @@ import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import JoditEditor from "jodit-react";
 
 import StoryAPI from '../../../services/storyAPI';
-import { create } from '../../../services/ChapterAPI';
+import { create, update } from '../../../services/ChapterAPI';
 
 function ChapterForm(props) {
-  const [chapter, setChapter] = useState({ name: '', index: '', storyId: '' })
+  const [chapter, setChapter] = useState({ name: '', index: '', storyId: '', content: '' })
   const [options, setOptions] = useState([])
   const [content, setContent] = useState('')
   useEffect(() => {
@@ -16,9 +16,27 @@ function ChapterForm(props) {
   const submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";
-    create({ ...chapter, content, index: +chapter.index, })
-      .then(res => props.history.push('/admin/chapters'))
+    if (props.isEdit) {
+      update(props.chapter.id, { ...chapter, content, index: +chapter.index, })
+        .then(res => props.history.push('/admin/chapters'))
+    } else {
+      create({ ...chapter, content, index: +chapter.index, })
+        .then(res => props.history.push('/admin/chapters'))
+    }
+
   };
+
+  useEffect(() => {
+    if (props.isEdit && props.chapter) {
+      setChapter({
+        name: props.chapter.name,
+        index: props.chapter.index,
+        storyId: props.chapter.storyId,
+        content: props.chapter.content,
+      })
+      setContent(props.chapter.content)
+    }
+  }, [props.chapter])
 
   const changeHandler = event => {
     setChapter({ ...chapter, [event.target.name]: event.target.value });
@@ -43,11 +61,11 @@ function ChapterForm(props) {
             >
               Truyện <span style={{ color: 'red' }}>(*) </span>
             </label>
-            <select id="selectStory" name="storyId" className="browser-default custom-select" onChange={changeHandler}>
+            <select id="selectStory" name="storyId" className="browser-default custom-select" onChange={changeHandler} value={chapter.storyId} disabled={props.isEdit}>
               <option>Chọn tên truyện</option>
               {options.map((op, index) => {
                 return (
-                  <option value={op.id}>{op.name}</option>
+                  <option key={op.id} value={op.id}>{op.name}</option>
                 )
               })}
             </select>
@@ -110,6 +128,7 @@ function ChapterForm(props) {
             <JoditEditor
               tabIndex={1}
               name="content"
+              value={content}
               onChange={(value) => handleInputText(value, 'content')}
             />
             <div className="invalid-feedback">
@@ -119,8 +138,8 @@ function ChapterForm(props) {
         </MDBRow>
 
         <MDBBtn color="primary" type="submit">
-          Tạo mới
-          </MDBBtn>
+          {props.isEdit ? 'Cập nhật' : 'Tạo mới'}
+        </MDBBtn>
       </form>
     </div >
   );

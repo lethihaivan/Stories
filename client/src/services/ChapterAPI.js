@@ -8,7 +8,8 @@ export const list = (params) => axios.get(listUserByRole(path, params)).then((re
 
 export const getById = (id) => axios.get(`${path}/${id}`).then((res) => res.data)
 
-export const create = (data) => axios.post('/chapters', data)
+export const create = (data) => axios.post(`${path}`, data)
+export const update = (id, data) => axios.put(`${path}/${id}`, data).then(res => res.data)
 
 // export const getAll = () => axios.get(path).then((res) => res.data)
 

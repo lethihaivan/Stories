@@ -10,7 +10,7 @@ function StoryRoute({ match }) {
     <Switch>
       <PrivateRoute path={`${match.path}`} exact component={StoryView} />
       <PrivateRoute path={`${match.path}/new`} exact component={StoryNew} />
-      <PrivateRoute path={`${match.path}/edit`} exact component={StoryEdit} />
+      <PrivateRoute path={`${match.path}/edit/:id`} exact component={StoryEdit} />
     </Switch>
   )
 }

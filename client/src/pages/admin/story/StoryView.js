@@ -56,18 +56,18 @@ function StoryView(props) {
     center: true,
     wrap: true
   },
-    // {
-    //   name: "",
-    //   width: 170,
-    //   cell: (row) => {
-    //     return (
-    //       <Link to={`/admin/chapters/edit/${row.id}`}>
-    //         <Button variant="success" className="btn-padding-9 btn-add-tablet">
-    //           Chi tiết          </Button>
-    //       </Link>
-    //     )
-    //   }
-    // },
+  {
+    name: "",
+    width: 170,
+    cell: (row) => {
+      return (
+        <Link to={`/admin/stories/edit/${row.id}`}>
+          <Button variant="success" className="btn-padding-9 btn-add-tablet">
+            Chi tiết          </Button>
+        </Link>
+      )
+    }
+  },
   ]
   const [maxLengthData, setMaxLengthData] = useState(100);
   const [textSearchValue, setTextSearchValue] = useState('');
