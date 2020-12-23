@@ -2,9 +2,9 @@ import Story from './story.model'
 import Chapter from '../chapter/chapter.model'
 import { populate } from './story.constants'
 
-const create = async ({ body, file }, res) => {
-  const { name, description, status, categories, author, createdBy, chapters, image } = { ...body }
-  const data = { name, description, status, categories, createdBy, author, chapters, image }
+const create = async ({ body, user }, res) => {
+  const { name, description, status, categories, author, chapters, image } = { ...body }
+  const data = { name, description, status, categories, createdBy: user.id, author, chapters, image }
   Story.create({ ...data })
     .then(story => story.populateStory())
     .then(story => res.status(201).json(story))
@@ -42,4 +42,12 @@ const getChaptersOfStory = async ({ querymen: { query, select, cursor }, params 
     .catch(err => res.status(400).json(err))
 }
 
-export { create, index, getById, getChaptersOfStory }
+const update = async ({ params, body }, res) => {
+  const { id } = params
+  Story.findByIdAndUpdate(id, body, { new: true, })
+    .then(chapter => res.status(200).json(chapter))
+    .catch(err => res.status(404).json(err))
+}
+
+
+export { create, index, getById, update, getChaptersOfStory }

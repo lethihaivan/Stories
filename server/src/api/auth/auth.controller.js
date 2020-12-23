@@ -27,11 +27,8 @@ const register = async ({ body }, res) => {
 const login = async ({ body }, res) => {
   const errors = validationLogin(body)
   if (Object.keys(errors).length) return res.status(400).json(errors)
-
   const { username, password } = body
-
   const user = await User.findOne({ username })
-
   if (user) {
     const isPasswordCorrect = await bcryptjs.compare(password, user.password)
     if (isPasswordCorrect) {
