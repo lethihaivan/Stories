@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa"
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { Link } from 'react-router-dom';
-import { IoIosBook, IoMdBookmarks } from "react-icons/io"
+import { IoIosBook, IoMdBookmarks, IoIosContacts } from "react-icons/io"
 // import { MdFormatAlignJustify } from "react-icons/md"
 // import { IoIosPeople, IoMdCart, IoMdBriefcase } from "react-icons/io"
 
@@ -22,9 +22,23 @@ const Header = (props) => {
     <SideNav expanded={expanded} onToggle={(e) => setExpanded(e)}>
       <SideNav.Toggle />
       <SideNav.Nav >
+
+        <LinkContainer to="/admin/users" exact>
+          <NavItem eventKey="">
+            <NavIcon style={{ marginRight: "10px" }}>
+              <IoIosContacts />
+            </NavIcon>
+            <NavText>
+              <div className="sidebar-nav">
+                Danh sách người dùng
+              </div>
+            </NavText>
+          </NavItem>
+        </LinkContainer>
+
         <LinkContainer to="/admin/chapters" exact>
           <NavItem eventKey="">
-            <NavIcon>
+            <NavIcon style={{ marginRight: "10px" }}>
               <IoMdBookmarks />
             </NavIcon>
             <NavText>
@@ -37,7 +51,7 @@ const Header = (props) => {
 
         <LinkContainer to="/admin/stories" exact>
           <NavItem eventKey="">
-            <NavIcon>
+            <NavIcon style={{ marginRight: "10px" }}>
               <IoIosBook />
             </NavIcon>
             <NavText>
