@@ -1,7 +1,6 @@
 import Category from './category.model'
 import Story from '../story/story.model'
 import { LIMIT_EACH_PAGE } from '../../constants'
-import { pagination } from '../../helpers/api'
 
 const index = async (req, res) => {
   try {

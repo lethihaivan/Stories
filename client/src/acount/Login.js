@@ -24,29 +24,22 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message);
-
   const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
   };
-
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
   };
-
   const handleLogin = (e) => {
     e.preventDefault();
-
     setLoading(true);
-
     form.current.validateAll();
-
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(username, password))
         .then(() => {
@@ -75,16 +68,13 @@ const Login = (props) => {
       "fontSize": "15px"
     }}>
       <div className="card card-container">
-
         <img
           src="https://www.rd.com/wp-content/uploads/2019/11/heart-book.jpg"
           alt="profile-img"
           className="profile-img-card"
         />
-
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group" >
-
             <Input
               type="text"
               className="form-control"
@@ -94,9 +84,7 @@ const Login = (props) => {
               validations={[required]}
               placeholder="Username"
             />
-
           </div>
-
           <div className="form-group">
             <Input
               type="password"
@@ -108,7 +96,6 @@ const Login = (props) => {
               placeholder="Password"
             />
           </div>
-
           <div className="form-group">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (

@@ -1,82 +1,274 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
+	text-align: center;
+  }
+  
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+	height: 40vmin;
+	pointer-events: none;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  @media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+	  animation: App-logo-spin infinite 20s linear;
+	}
   }
-  to {
-    transform: rotate(360deg);
+  
+  .App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
   }
-}
-label {
-  display: block;
-  margin-top: 10px;
+  
+  .App-link {
+	color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+	from {
+	  transform: rotate(0deg);
+	}
+	to {
+	  transform: rotate(360deg);
+	}
+  }
+  label {
+	display: block;
+	margin-top: 10px;
+  }
+  
+  .card-container.card {
+	max-width: 350px !important;
+	padding: 40px 40px;
+  }
+  
+  .card {
+	background-color: #f7f7f7;
+	padding: 20px 25px 30px;
+	margin: 0 auto 25px;
+	margin-top: 50px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-img-card {
+	width: 96px;
+	height: 96px;
+	margin: 0 auto 10px;
+	display: block;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+  }
+  .footer {
+	color: #F2EDE4;
+  }
+  
+  a#my-twitter-id, a#license
+  {
+	  text-decoration: none;
+	  color: #FFB900;
+  }
+  a#my-twitter-id:hover, a#license:hover{
+	  color: #F2EDE4;
+  }
+
+
+.list {
+	width: 100%;
+	margin-top: 100px;
 }
 
-.card-container.card {
-  max-width: 350px !important;
-  padding: 40px 40px;
+.content-table {
+	border-collapse: collapse;
+	margin: 25px 10px 25px 0px;
+	font-size: 15px;
+	font-family: 'Roboto Medium';
+	min-width: 70%;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+
+	/* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
 }
 
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+.content-table thead tr {
+	background-color: #A9A9A9;
+	color: #fff;
+	text-align: left;
+	font-weight: bold;
 }
 
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
-.footer {
-  color: #F2EDE4;
+.content-table th, .content-table td {
+	padding: 12px 15px;
+	font-size: 18px;
 }
 
-a#my-twitter-id, a#license
-{
-    text-decoration: none;
-    color: #FFB900;
+.content-table tbody tr {
+	border-bottom: 1px solid #9c9c9c;
 }
-a#my-twitter-id:hover, a#license:hover{
-    color: #F2EDE4;
+
+.content-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+	
+}
+
+.content-table tbody tr:last-of-type {
+	border-bottom: 1px solid  #009879;
+}
+
+
+
+.info  ._1info .edit:hover{
+	cursor: pointer;
+}
+
+.info .form-change-password {
+	width: 50%;
+	height: 100%;
+	/* border: 1px solid red; */
+	margin: 20px 40px;
+}
+
+.info .form-change-password label{
+	display: block;
+	padding-bottom: 7px;
+	font-weight: normal;
+	font-family: 'Roboto Medium';
+	cursor: default;
+	font-size: 20px;
+}
+
+.info .form-change-password input{
+	display: block;
+	padding: 7px 10px;
+	width: 270px;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+.info .save-change{
+	background-color: #388FCB;
+	color: white;
+	padding: 10px 10px;
+	font-size: 15px;
+	border-radius: 3px;
+}
+
+.main-header .navbar-custom-menu{
+	float: right;
+	margin-right: 15px!important;
+	width: 200px;
+}
+
+.main-header .navbar-custom-menu ul{
+	list-style: none;
+}
+
+.main-header .navbar-custom-menu img{
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.main-header .navbar-custom-menu .hidden-xs{
+	position: relative;
+	top: -19px;
+	font-size: 14px;
+}
+
+.main-header .dropdown-menu{
+	float: right;
+	width: 170px;
+	position: absolute;
+	top: 53px;
+	right: 30px;
+
+}
+
+.main-header .dropdown-menu ul {
+	list-style: none;
+}
+
+.main-header .dropdown-menu .user-footer a{
+	color: black;
+}
+
+.main-header .dropdown-menu .user-footer{
+	padding: 8px 20px;
+}
+
+.main-header .dropdown-menu .user-footer:hover{
+	background: #EFEFEF;
+	cursor: pointer;
+}
+.main-header .dropdown-menu{
+	border: 1px solid rgba(0,0,0,0.15);
+	background: white;
+	padding: 5px 0;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.main-header .dropdown-menu.hiendanhsach{
+	opacity: 1;
+	visibility: visible;
+}
+.read {
+	width: 90%;
+	margin: 0 25px;
+}
+
+.uppercase{
+	text-transform: uppercase;
+}
+
+.icon-back{
+	margin-right: 13px;
+}
+
+/* checkboxes */
+
+  #checkboxes {
+	/* display: none; */
+	margin: 0 20px;
+  }
+
+  #checkboxes label {
+	display: block;
+  }
+
+  .hidden{
+	  opacity: 0;
+	  visibility: hidden;
+  }
+
+  .edit-name{
+	  padding: 5px 10px;
+	  font-size: 15px;
+  }
+  
+  table td {
+	  font-size: 18px;
+  }
+  .list-thumbnail>.row:nth-child(2)>div
+  {
+	height: auto;
+    margin: 7.5px 0;
+    padding: 0;
+    border-left: 0;
+    line-height: 0;
+    text-align: center;
+  }
+  .list>.row {
+    display: table-row;
+    font-family: 'Roboto Condensed',Tahoma,sans-serif;
+    font-size: 15px;
 }

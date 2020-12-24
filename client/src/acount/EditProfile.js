@@ -1,63 +1,55 @@
 import React, { Component } from 'react'
-import updateUser from "../services/auth.service";
 import axios from "axios"
+import { EditMe, getMe } from '../services/auth-header';
 class EditProfile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            //  id: this.props.match.params.id,
-            username: '',
+            id: this.props.match.params.id,
             fullName: '',
-            role: ''
+            avatarUrl: '',
+
+
         }
-        this.changeUserNameHandler = this.changeUserNameHandler.bind(this);
         this.changeFullNameHandler = this.changeFullNameHandler.bind(this);
-        this.changeRolelHandler = this.changeRolelHandler.bind(this);
+        this.changeavatarUrlHandler = this.changeavatarUrlHandler.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        console.log(this.props.match.params.fullName);
     }
+
     componentDidMount = () => {
-        const usera = JSON.parse(localStorage.getItem('user'));
-        axios.put("http://localhost:9091/api/users", {
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json",
-                "Authorization": "Bearer " + usera.token
-            }
-        }).then(res => {
-            let user = res.data;
+        getMe().then(res => {
+            const user = res;
             this.setState({
-                username: user.username,
                 fullName: user.fullName,
-                role: user.role
+                avatarUrl: user.avatarUrl
             });
+            console.log(user);
         })
     }
     updateUser = (e) => {
         e.preventDefault();
-        const usera = JSON.parse(localStorage.getItem('user'));
-        let user = { username: this.state.username, fullName: this.state.fullName, role: this.state.role };
+
+        let user = {
+            fullName: this.state.fullName,
+            avatarUrl: this.state.avatarUrl
+        };
         console.log('users => ' + JSON.stringify(user));
-        axios.put("http://localhost:9091/api/users", {
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json",
-                "Authorization": "Bearer " + usera.token
-            }
-        }).then(res => {
-            console.log(res);
+        EditMe(this.state.id, user).then(res => {
+
             this.props.history.push('/profile');
         });
     }
-    changeUserNameHandler = (event) => {
-        this.setState({ username: event.target.value });
-    }
-
     changeFullNameHandler = (event) => {
-        this.setState({ fullName: event.target.value });
-    }
+        this.setState({
+            fullName: event.target.value,
 
-    changeRolelHandler = (event) => {
-        this.setState({ role: event.target.value });
+        });
+    }
+    changeavatarUrlHandler = (event) => {
+        this.setState({
+            avatarUrl: event.target.value
+        });
     }
     cancel() {
         this.props.history.push('/profile');
@@ -73,14 +65,14 @@ class EditProfile extends Component {
                             <div className="card-body">
                                 <form>
                                     <div className="form-group">
-                                        <label> Full Name: </label>
-                                        <input placeholder="Full Name" name="fullName" className="form-control"
-                                            value={this.state.fullName} onChange={this.changeFullNameHandler} />
+                                        <label> Url Image: </label>
+                                        <input placeholder={this.state.avatarUrl} name={this.state.avatarUrl} className="form-control"
+                                            value={this.state.avatarUrl} onChange={this.changeavatarUrlHandler} />
                                     </div>
                                     <div className="form-group">
-                                        <label> Url Image: </label>
-                                        <input placeholder="Url Image" name="image" className="form-control"
-                                            value={this.state.username} onChange={this.changeUserNameHandler} />
+                                        <label> Full Name: </label>
+                                        <input placeholder={this.state.fullName} name={this.state.fullName} className="form-control"
+                                            value={this.state.fullName} onChange={this.changeFullNameHandler} />
                                     </div>
                                     <button className="btn btn-success" onClick={this.updateUser}>Save</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>

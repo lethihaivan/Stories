@@ -26,7 +26,7 @@ const Story = ({ match, location }) => {
       .catch(err => console.log(err))
       .finally(() => setIsLoading({ ...isLoading, story: false }))
   }, []);
-
+  var status = (story && story.status === 'unfulfilled') ? 'Đang cập nhật' : 'Hoàn thành'
   /* 
     useEffect(() => {
       // Call again each when history.push query params. -> chapter updated
@@ -38,6 +38,7 @@ const Story = ({ match, location }) => {
     }, [location.search]) */
 
   return (
+
     <div>
       {
         isLoading.story ? (
@@ -62,13 +63,14 @@ const Story = ({ match, location }) => {
                     </div>
                     <div className="info">
                       <div >
-                        <h3>Tác giả:<a href="" > {story && story.author && story.author.fullName}  </a></h3>
+                        <h3>Tác giả:<Link to={`/${story && story.author && story.author.fullName}`}>
+                          {story && story.author && story.author.fullName}</Link></h3>
                       </div>
                       <div>
-                        <h3>Thể loại: <a href="" >{story && story.categories && story.categories.title} </a></h3>
+                        <h3>Thể loại:  {story && story.categories && story.categories.map(cat => <Link to={`catelogies/${cat.title}`} key={cat.id}>| {cat.title}  | </Link>)}</h3>
                       </div>
                       <div>
-                        <h3>Trạng thái: <span class="text-primary">{story && story.status}</span> </h3>
+                        <h3>Trạng thái: <span class="text-primary">{status}</span> </h3>
                       </div>
                     </div>
                   </div>
@@ -84,9 +86,10 @@ const Story = ({ match, location }) => {
                       </br>
                       <br>
                       </br>
-                      <p>Truyện THẦN ĐẠO ĐAN TÔN là một tác phẩm truyện thuộc thể loại Đông phương
-                    <a target="_blank" href="">huyền huyễn</a>
-                     của tác giả <a target="_blank" href="">Mạc Mặc</a>
+                      <p>Truyện {story.name}là một tác phẩm truyện thuộc thể loại
+                      {story && story.categories && story.categories.map(cat => <Link to={`catelogies/${cat.title}`} key={cat.id}> {cat.title}  | </Link>)}
+                     của tác giả <Link to={`/${story && story.author && story.author.fullName}`}>
+                          {story && story.author && story.author.fullName}</Link>
                       nổi tiếng. Nội dung câu chuyện trong Vũ Luyện Điên Phong xoay quanh Dương Khai - một đệ tử thí luyện của Lăng Tiêu Các. Khởi đầu, Dương Khai chỉ là một gã quét rác, sai vặt ... vì vô tình mặt được một cuốn Hắc thư thần bí, từ đó chàng bước vào con đường võ đạo dài đằng đẵng nhưng cũng lắm gian truân trắc trở và đau thương...”</p>
                       <p>Vì sao mà một tên quét rác lại có thể thành anh hùng trứ danh thiên hạ, vì sao mà một tên hàu sai vặt lại chiếm được những mỹ nữ sắc nước hương trời trong thiên hạ ?&nbsp;Trong thế giới của Vũ Luyện Điên Phong, đỉnh cao nhất của võ đạo, chính là cô độc, là tịch mịch, là đằng đẵng miệt mài, cao xứ bất thắng hàn.</p>
                       <p>Sống trong nghịch cảnh, phát triển trong tuyệt địa, bất khuất không bỏ cuộc, mới có thể phá vỡ được cực đạo của võ thuật. Có thể nói dưới bút văn giản dị nhưng vô cùng súc tích đầy hình ảnh của tác giả Mạc Mặc, những trận quyết đấu máu lửa trong Vũ Luyện Điên Phong như diễn ra hết sức sống động trước mắt độc giả...</p>
@@ -96,7 +99,6 @@ const Story = ({ match, location }) => {
                   <div className="title-list">
 
                   </div>
-                  {/*   <GetChapterOfStory storyId={story && story && story.id} > </GetChapterOfStory> */}
 
                 </div>
                 <div className="title-list" style={{

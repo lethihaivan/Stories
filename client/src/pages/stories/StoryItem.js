@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import "./Story.css";
 
-const StoryItem = ({ id, description, name, category }) => {
+const StoryItem = ({ id, description, name, status }) => {
     return (
 
         <div className="index-intro" style={{ display: 'block' }} >
             <div className="item top-2" >
                 <a  >
-                    <span className="full-label"></span>
+                    {status == "full" && <span className="full-label"></span>}
                     <img src={description}
                         className="img-responsive item-img"
                     />

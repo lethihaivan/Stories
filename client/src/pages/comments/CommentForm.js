@@ -47,11 +47,7 @@ export default class CommentForm extends Component {
     console.log(user);
     let { comment } = this.state;
     postComments({
-      comment, headers: {
-        "Accept": "application/json",
-        "Content-type": "application/json",
-        "Authorization": "Bearer " + user.token
-      }
+      comment
     })
       .then(res => {
         if (res.error) {

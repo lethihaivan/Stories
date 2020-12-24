@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import "../styles/Profile.css"
 
 import authHeader, { getMe } from "../services/auth-header";
-const Profile = () => {
+const Profile = (match) => {
   const { isLoggedIn } = useSelector(state => state.auth);
   // const { user: currentUser } = useSelector((state) => state.auth);
   // console.log(currentUser);
@@ -44,7 +44,7 @@ const Profile = () => {
                       </Link></button>
                   <button class="btn btn-warning btn-block"
                     style={{ 'fontSize': '18px', 'width': '200%', 'marginTop': '20px' }}
-                  >     <Link to={"/users"} >
+                  >     <Link to={`/users/${usern.id}`} key={usern.id, usern.fullName} >
                       Edit Profile
                       </Link></button>
                 </div>

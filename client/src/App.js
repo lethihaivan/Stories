@@ -25,8 +25,9 @@ import { clearMessage } from "./actions/message";
 import { history } from "./helpers/history";
 import UserComment from "./pages/comments/UserComment";
 import AdminPage from "./pages/admin/AdminRouter";
-
+import StoryOfCatelogies from "./pages/categories/StoryOfCatelogies";
 import { getMe } from "./services/auth-header";
+import StoryOfAuthor from "./pages/categories/StoryOfAuthor";
 const regex = new RegExp(/\/admin/)
 const App = () => {
   const [showAuthorBoard, setShowAuthorBoard] = useState(false);
@@ -142,12 +143,14 @@ const App = () => {
             <Route exact path="/stories/:storyId"
               render={props => <UserComment {...props.match.params} />} />
             <Route exact path="/stories/:id/:index" component={Chapter} />
+            <Route path="/catelogies/:name_cate" component={StoryOfCatelogies} />
+            {/* <Route exact path="/:author" component={StoryOfAuthor} /> */}
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/library" component={MyLibrary} />
             <Route path="/mod" component={BoardAuthor} />
             <Route exact path="/stories/remove/:id" component={DelStory} />
-            <Route path="/users" component={EditProfile}></Route>
+            <Route path="/users/:id" component={EditProfile}></Route>
             {/*  <Route exact path="/stories/:storyId/chapters" render={props =>
               <AppPagination {...props.match.params} />} /> */}
             <Router history={history}>
